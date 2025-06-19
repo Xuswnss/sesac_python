@@ -1,0 +1,30 @@
+<!-- 인라인 요소(Inline element) ; 필요한 만큼만 공간을 차지함 (ex) Img, a, span
+블럭 요소(block element) ; 무조건 그 한 줄을 다차지함 ex) h1 ~ h6, p, div... -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>폼 학습하기</h1>
+    <h2>1. 로그인 창 만들기</h2>
+    <form>
+      <label for="user_id"> 아이디</label>
+      <!--<label for="/*id값을 넣어준다.*/">-->
+      <input type="text" name="id" id="user_id" /><br /><br />
+      <label for="user_password">비밀번호</label>
+      <input type="password" name="password" id="user_password" />
+      <br /><br />
+      <input type="submit" value="로그인" />
+    </form>
+    <!-- 폼이 전송될 떄, 위의 input 값의 name이 key가 되는 거고, 실제로 사용자가 입력한게 value가 되어서 서버로 전달됨. -->
+    <hr />
+    <h2>2. 검색창 만들기</h2>
+    <form>
+      <label for="search">검색</label>
+      <input type="text" name="q" id="search" />
+      <input type="submit" value="검색" />
+    </form>
+  </body>
+</html>
