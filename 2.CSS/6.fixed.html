@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .bg {
+        height: 200px;
+        background-color: orange;
+      }
+      .center {
+        background-color: tomato;
+      }
+      .fixed {
+        width: 100px;
+        height: 100px;
+        background-color: teal;
+        position: fixed;
+        bottom: 50px;
+        background-image: url(../1.HTML/images/star.i);
+
+        background-size: cover;
+        /* background-size : cover == background-size : 100% 100% */
+
+        right: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <!-- 같은 레벨일 때는 아래있는게 적용된다 .center이 style 내부 에서 .bg보다 아래에 있으므로
+     .center가 적용이 된다. -->
+    <div class="bg center"></div>
+    <div class="bg"></div>
+    <div class="fixed"></div>
+  </body>
+</html>

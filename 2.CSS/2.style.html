@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.css.html</title>
+    <style>
+      /* Css 셀렉터란 ?
+          - 원하는 Html요소를 선택하는 방법 3가지
+              - tag, class, id 
+        디테일한 셀렉터가 가장 우선순위가 높다.      
+              */
+      h1 {
+        color: blue;
+      }
+      h2 {
+        color: red;
+      }
+      h3 {
+        color: green;
+      }
+      p {
+        color: blue;
+        background-color: aliceblue;
+      }
+      .color1 {
+        color: black;
+        background-color: tomato;
+        border: 1px solid black;
+      }
+      .color2 {
+        color: steelblue;
+        background-color: skyblue;
+        border: 3px dotted yellow;
+      }
+      #color3 {
+        color: black;
+        border: 10px groove #f56f6f;
+        width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>css</h1>
+    <h2>헤딩2</h2>
+    <h3>헤딩3</h3>
+    <p class="color1">본문 내용으로 아무 내용이나 작성1</p>
+    <p class="color2">본문 내용으로 아무 내용이나 작성2</p>
+    <p id="color3" class="color1">본문 내용으로 아무 내용이나 작성3</p>
+    <p>본문 내용으로 아무 내용이나 작성4</p>
+  </body>
+</html>

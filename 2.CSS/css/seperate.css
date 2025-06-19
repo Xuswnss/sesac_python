@@ -1,0 +1,33 @@
+/* Css 셀렉터란 ?
+          - 원하는 Html요소를 선택하는 방법 3가지
+              - tag, class, id 
+        디테일한 셀렉터가 가장 우선순위가 높다.      
+              */
+h1 {
+  color: blue;
+}
+h2 {
+  color: red;
+}
+h3 {
+  color: green;
+}
+p {
+  color: blue;
+  background-color: aliceblue;
+}
+.color1 {
+  color: black;
+  background-color: tomato;
+  border: 1px solid black;
+}
+.color2 {
+  color: steelblue;
+  background-color: skyblue;
+  border: 3px dotted yellow;
+}
+#color3 {
+  color: black;
+  border: 10px groove #f56f6f;
+  width: 50%;
+}

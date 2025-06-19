@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      /* 모든 태그에 공통적으로 적용해야 할 때는 셀렉터를 태그명으로 잡는다. */
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 99, 71, 0.819);
+        margin: 5px;
+      }
+
+      .location {
+        /* position: relative;  상대적으로 원래 있던 위치에서 이동 */
+        position: absolute; /*절대적으로 이동한다.*/
+        top: 20px;
+        left: 50px;
+        background-color: red;
+      }
+      /* div p ; div안에 있는 모든 p
+         div > p ; div안에 있는 p                     
+      */
+      div > p {
+        display: inline;
+        padding: 10px;
+        color: black;
+        position: relative;
+        top: 20px;
+        left: 50px;
+        background-color: aliceblue;
+      }
+      .cat-container {
+        width: 400px;
+        height: 300px;
+
+        background-image: url(../1.HTML/images/바다.png);
+        /* 사진 반복x */
+        background-repeat: no-repeat;
+        /* 이미지가 반복될 경우 반복되지 않고 크기에 맍게 사진을 늘림. */
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div>1</div>
+    <div class="location">2</div>
+    <div>3</div>
+    <div class="cat-container"><p>귀여운 고양이</p></div>
+    <p>못생긴 고양이</p>
+  </body>
+</html>

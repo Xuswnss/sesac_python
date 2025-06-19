@@ -1,0 +1,5 @@
+#맥북용 파일
+.DS_Store
+SESAC_PY3/sesac_python/1.HTML/images
+#민감정보
+.env
