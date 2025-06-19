@@ -1,0 +1,14 @@
+th {
+  width: 14%;
+}
+.sun {
+  color: red;
+}
+.sat {
+  color: blue;
+}
+img {
+  /* background-image: url(/1.HTML/images/바다.png); */
+  width: 100%;
+  height: 300px;
+}
