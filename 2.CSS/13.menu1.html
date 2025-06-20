@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>13.menu</title>
+    <style>
+      .container .item {
+        display: inline-block;
+        width: 100px;
+        text-align: center;
+        border-right: 1px solid black;
+      }
+
+      .container .item.last {
+        /* 붙어있는 것과 띄어쓴 것과 다르므로 의미를 주의해라 .item.last는 (and) 이며
+        .item .last는 (Or)이다. */
+        float: right;
+        border-right: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item">menu1</div>
+      <div class="item">menu2</div>
+      <div class="item">menu3</div>
+      <div class="item">menu4</div>
+      <div class="item last">login</div>
+    </div>
+  </body>
+</html>

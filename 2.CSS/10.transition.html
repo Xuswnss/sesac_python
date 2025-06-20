@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>10.transition.html</title>
+  </head>
+  <style>
+    .square {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      transition-property: width, height; /* 속성들을 잘 이해해야한다*/
+      transition-duration: 0.5s;
+      transition-timing-function: ease-out; /*빨라졌다 느려짐*/
+    }
+
+    .square:hover {
+      width: 150px;
+      height: 150px;
+    }
+
+    .button {
+      color: black;
+      transition-property: color;
+      transition-duration: 1s;
+      transition-timing-function: ease;
+    }
+
+    .button:hover {
+      color: red;
+    }
+
+    .image {
+      width: 200px;
+      height: 200px;
+      transition-property: transform;
+      transition-duration: 2s;
+      transition-timing-function: ease-out;
+    }
+    .image:hover {
+      width: 400px;
+      height: 400px;
+      transform: rotate(180deg);
+    }
+  </style>
+  <body>
+    <div class="square"></div>
+    <br />
+    <button class="button">마우스를 올려보시오</button>
+    <br />
+    <img src="../1.HTML/images/cat2.jpg" alt="고양이" class="image" />
+  </body>
+</html>

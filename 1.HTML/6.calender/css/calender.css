@@ -1,14 +1,56 @@
+/* Deprecated ; 지금은 쓸 수 있지만, 앞으로 없어질 것이 가능하면 사용x */
+body > table {
+  text-align: center;
+  border: 1px solid black;
+  width: 100%;
+  margin-top: 20px;
+  border: none;
+  border-collapse: collapse;
+}
+
+button {
+  display: inline-block;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#calendar th,
+#calender td {
+  width: 14%;
+  padding: 10px;
+}
+
 th {
   width: 14%;
+  background-color: cornsilk;
+  border: 1px solid whitesmoke;
 }
+/* 주말 색 변경 */
 .sun {
   color: red;
 }
 .sat {
   color: blue;
 }
+/* 이미지 크기 지정 */
 img {
   /* background-image: url(/1.HTML/images/바다.png); */
   width: 100%;
   height: 300px;
+}
+
+#calender td:first-child,
+#calender th:first-child {
+  color: red;
+}
+
+/* first-child == nth-child(1)  */
+
+#calender td:last-child,
+#calender th:last-child {
+  color: blue;
 }
