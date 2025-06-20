@@ -1,3 +1,6 @@
+body {
+  background-color: tomato;
+}
 /* Deprecated ; 지금은 쓸 수 있지만, 앞으로 없어질 것이 가능하면 사용x */
 body > table {
   text-align: center;
