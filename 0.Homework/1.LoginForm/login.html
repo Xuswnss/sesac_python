@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/SinUp</title>
+    <link rel="stylesheet" href="./css/login.css" />
+  </head>
+
+  <body>
+    <img src="./image/sesac1.png" alt="" />
+    <div class="main-container">
+      <!-- 로그인 버튼  -->
+      <input type="checkbox" id="login-toggle-btn" hidden />
+      <label for="login-toggle-btn" class="login-btn">Sign In</label>
+      <!-- 로그인 폼 입력창 -->
+      <div class="login">
+        <label for="id">id</label>
+        <input
+          type="text"
+          id="id"
+          placeholder="id"
+          class="input-container"
+        /><br />
+        <label for="password">password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="password"
+          class="input-container"
+        />
+        <br />
+        <input type="checkbox" name="rememberId" id="rememberId" />
+        <label for="rememberId">아이디 기억하기</label>
+      </div>
+      <!-- 비밀번호 버튼  -->
+
+      <input type="checkbox" id="sign-up-toggle-btn" hidden />
+      <label for="sign-up-toggle-btn" class="sign-up-btn">Sign Up</label>
+      <!-- 비밀번호 폼 입력창 -->
+      <div class="sign-up">
+        <label for="email">email</label>
+        <input type="text" placeholder="email" class="input-container" /><br />
+        <label for="sign-up-id">id</label>
+        <input
+          type="text"
+          id="sign-up-id"
+          placeholder="id"
+          class="input-container"
+        />
+        <br />
+        <label for="sign-up-password">password</label>
+        <input
+          type="password"
+          placeholder="password"
+          class="input-container"
+        /><br />
+        <button>sign up</button>
+      </div>
+    </div>
+  </body>
+</html>

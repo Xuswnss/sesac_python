@@ -1,0 +1,39 @@
+/* 기본 색상 지정 */
+:root {
+  --sesac-green: rgb(132, 188, 113);
+  --sesac-yellow-green: rgb(192, 214, 133);
+}
+
+body {
+}
+
+.main-container {
+  width: 30%;
+  border: 2px solid var(--sesac-green);
+  justify-items: center;
+  align-items: center;
+}
+/* sign in up toggle  */
+.login,
+.sign-up {
+  display: none;
+}
+
+#login-toggle-btn:checked + .login-btn + .login {
+  display: block;
+}
+
+#sign-up-toggle-btn:checked + .sign-up-btn + .sign-up {
+  display: block;
+}
+
+/*  input style */
+
+input::placeholder {
+  color: var(--sesac-yellow-green);
+}
+.input-container {
+  width: fit-content%;
+  height: 30px;
+  border: 1px solid var(--sesac-green);
+}
