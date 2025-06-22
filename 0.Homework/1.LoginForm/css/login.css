@@ -1,17 +1,99 @@
 /* 기본 색상 지정 */
 :root {
+  --sesac-font-color: rgb(89, 133, 74);
   --sesac-green: rgb(132, 188, 113);
   --sesac-yellow-green: rgb(192, 214, 133);
 }
 
 body {
+  width: 100%;
+  height: 100%;
+  color: var(--sesac-font-color);
+  /* background-color: var(--sesac-yellow-green); */
+  animation-name: background-color-change;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+}
+/* sesac - logo */
+#sesac-logo {
+  display: block;
+  margin: 0 auto;
+  animation-name: sesac-logo-transition;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+}
+
+@keyframes sesac-logo-transition {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .main-container {
+  background-color: white;
+  opacity: 0.7;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+  animation: main-container-transition 1s ease-in-out;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  position: absolute;
+  left: 35%;
+  bottom: 1%;
+}
+
+/* main-contianer-animation */
+
+@keyframes main-container-transition {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 배경 색 변화 animation  */
+@keyframes background-color-change {
+  0% {
+    background-color: var(--sesac-green);
+  }
+  25% {
+    background-color: var(--sesac-yellow-green);
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+label {
+  display: block;
+}
+.remember-id-container * {
+  display: inline-block;
+}
+
+.main-container {
+  border-radius: 0px 10px 0 10px;
   width: 30%;
   border: 2px solid var(--sesac-green);
+  display: inline-block;
   justify-items: center;
   align-items: center;
+  padding-bottom: 10px;
 }
 /* sign in up toggle  */
 .login,
@@ -30,10 +112,32 @@ body {
 /*  input style */
 
 input::placeholder {
-  color: var(--sesac-yellow-green);
+  color: var(--sesac-font-color);
+  opacity: 0.5;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--sesac-yellow-green);
 }
 .input-container {
-  width: fit-content%;
-  height: 30px;
+  width: fit-content;
+  height: 22px;
   border: 1px solid var(--sesac-green);
+  margin: 2px;
+  border-radius: 10px 0 10px 0;
+}
+
+button {
+  width: 145px;
+  height: 26px;
+  background-color: var(--sesac-yellow-green);
+  color: var(--sesac-font-color);
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: var(--sesac-green);
 }

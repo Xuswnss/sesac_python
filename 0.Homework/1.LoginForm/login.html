@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <img src="./image/sesac1.png" alt="" />
+    <img src="./image/sesac1.png" alt="sesac-logo" id="sesac-logo" />
     <div class="main-container">
       <!-- 로그인 버튼  -->
       <input type="checkbox" id="login-toggle-btn" hidden />
@@ -20,6 +20,7 @@
           type="text"
           id="id"
           placeholder="id"
+          ㄴ
           class="input-container"
         /><br />
         <label for="password">password</label>
@@ -30,8 +31,11 @@
           class="input-container"
         />
         <br />
-        <input type="checkbox" name="rememberId" id="rememberId" />
-        <label for="rememberId">아이디 기억하기</label>
+        <div class="remember-id-container">
+          <input type="checkbox" name="rememberId" id="rememberId" />
+          <label for="rememberId">rememberId</label>
+        </div>
+        <button>sign in</button>
       </div>
       <!-- 비밀번호 버튼  -->
 
