@@ -1,5 +1,7 @@
 body {
+  width: 100%;
   background-color: rgb(249, 184, 160);
+  height: 100%;
 }
 ul {
   list-style-type: none;
@@ -8,9 +10,10 @@ ul {
   display: flex;
   background-color: rgb(249, 184, 160);
   /* border: 1px solid pink; */
+  height: 33px;
 }
 li {
-  /* flex: 1; */
+  flex: 1;
   width: 100px;
   text-align: center;
 }
@@ -38,7 +41,7 @@ li a:hover {
   align-items: center;
   border-radius: 8px;
   width: 100%;
-  height: 570px;
+  height: calc(100%-33px);
 }
 
 .caprasimo-regular {
@@ -62,7 +65,7 @@ li a:hover {
 table {
   border-collapse: collapse;
   width: 100%;
-  height: 450px;
+  height: 500px;
   border: 0;
   border-radius: 20px;
 }
@@ -70,4 +73,9 @@ table {
 table th,
 td {
   border: none;
+}
+
+td:hover {
+  background-color: rgb(247, 208, 150);
+  border-radius: 20px;
 }
