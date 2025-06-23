@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2.gugudan.html</title>
+  </head>
+  <body>
+    <h1>구구단</h1>
+    <input type="number" id="dan" placeholder="숫자를 입력하시오" />
+    <button onclick="print_gugudan()">출력하기</button>
+    <hr />
+    <div id="result"></div>
+    <!-- 결과를 보여줄 div 추가 -->
+
+    <script>
+      function print_gugudan() {
+        let input_dan = document.getElementById("dan");
+        let input_dan_value = input_dan.value;
+        let result_div = document.getElementById("result");
+        result_div.innerHTML = ""; // 이전 결과 초기화
+
+        for (let i = 1; i <= 9; i++) {
+          result_div.innerHTML += `${input_dan_value} X ${i} = ${
+            input_dan_value * i
+          }<br/>`;
+        }
+      }
+    </script>
+  </body>
+</html>

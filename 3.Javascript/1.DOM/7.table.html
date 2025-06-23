@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>table</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 10px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>셀 1</td>
+        <td>셀 2</td>
+        <td>셀 3</td>
+      </tr>
+      <tr>
+        <td>셀 3</td>
+        <td>셀 4</td>
+        <td>셀 5</td>
+      </tr>
+      <tr>
+        <td>셀 6</td>
+        <td>셀 7</td>
+        <td>셀 8</td>
+      </tr>
+    </table>
+
+    <button onclick="changeAllCellColor()">색상 모두 변경하기</button>
+    <button>짝수만 변경하기</button>
+    <button>홀수만 변경하기</button>
+    <script>
+      // document.getElementById
+      // document.getElementsByClassName
+      // documet.getElementsByTagName
+      // document.getElementsByClassName
+
+      function changeAllCellColor() {
+        let cells = document.getElementsByTagName("td");
+      }
+      //전체 배열을 한 번에 적용할 수 없음
+      //하나 이상의 셀을 지정해서 해당 변수를 통해 그 안에 있는 변수의 속성을 참조하는 것이다.
+
+      // #1 legacy한 old for loop style
+      //         for (let i = 0; i < cells.length; i++) {
+      //           cells[i].style.backgroundColor = "lightblue";
+      //         }
+      //       } // end changeAllCellColor()
+
+      // #2. for(let.. of.. ){}
+      for (let cell of cells) {
+        // cells을 iterator해서 cell로 하나씩 뽑음
+        cell.style.backgroundColor = "lightblue";
+      }
+
+      //참고
+      // 왜 forEach는 안될까
+      // forEach는 Array라는 Class가 가지고 있는 함수임
+      // 근데 지금의 cells는 Array가 아니고, HTM:Collenction이라는 class로 만들어짐
+      // 그래서 forEach함수가 없어서 내가 적용하고 싶으면 강제로 castiong 해야함
+      // console.log(cells);
+      // Array.from(cells).forEach(cell => {
+      //             cell.style.backgroundColor = 'lightblue'
+      // })
+    </script>
+  </body>
+</html>

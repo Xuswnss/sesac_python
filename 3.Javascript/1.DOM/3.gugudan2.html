@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2.gugudan.html</title>
+  </head>
+  <body>
+    <h1>구구단</h1>
+    <input type="number" placeholder="숫자를 입력하시오" />
+    <button>출력하기</button>
+    <hr />
+
+    <script>
+      function print_gugudan() {
+        for (let dan = 2; dan <= 9; dan++) {
+          document.write(`<h4>--- ${dan}dan start --- </h4><br/>`);
+          for (let i = 1; i <= 9; i++) {
+            //         document.write(`숫자 : ${i} <br/>`);
+            document.write(`${dan} X ${i} = ${dan * i}<br/>`);
+          }
+          document.write(`<h4>--- ${dan}dan end ---</h4>`);
+        }
+      }
+    </script>
+  </body>
+</html>

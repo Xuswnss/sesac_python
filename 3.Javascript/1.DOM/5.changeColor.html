@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>changeColor</title>
+  </head>
+  <body>
+    <button onclick="changeColor3()">배경색 변경하기</button>
+
+    <script>
+      function changeColor() {
+        if (document.body.style.backgroundColor !== "tomato") {
+          document.body.style.backgroundColor = "tomato";
+        } else {
+          document.body.style.backgroundColor = "white";
+        }
+      } // end changeColor()
+      let currentIndex = 0;
+
+      function changeColor2() {
+        const colors = ["red", "green", "blue"];
+
+        document.body.style.backgroundColor = colors[currentIndex];
+        currentIndex += 1;
+
+        if (currentIndex === color.length) {
+          currentIndex = 0;
+        }
+      } // end changeColor2()
+
+      function changeColor3() {
+        const colors = ["red", "green", "yellow", "orange", "coral"];
+        document.body.style.backgroundColor = colors[currentIndex];
+        currentIndex = (currentIndex + 1) % colors.length;
+      } // end changeColor3()
+    </script>
+  </body>
+</html>
