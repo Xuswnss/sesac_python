@@ -79,6 +79,23 @@
           }
         };
       } // end guessNumber()
+
+      ///// 코드 리뷰
+
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+      function checkGuess() {
+        const guess = document.getElementById("guessInput").value;
+        const result = document.getElementById("result");
+
+        if (guess < randomNumber) {
+          result.textContent = "숫자가 작아요";
+        } else if (guess > randomNumber) {
+          result.textContent = "숫자가 너무 커요";
+        } else {
+          result.innerHTML = "<b>정답입니다</b>";
+        }
+      } // end checkGuess
     </script>
   </body>
 </html>
