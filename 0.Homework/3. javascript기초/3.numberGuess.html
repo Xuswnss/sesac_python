@@ -15,7 +15,7 @@
       (1~100)
     </h1>
     <div class="container">
-      <input type="number" id="inputValue" />
+      <input type="number" id="inputValue" placeholder="숫자를 입력하세요" />
       <button id="guessButton">Guess</button>
     </div>
     <hr />
@@ -25,7 +25,7 @@
     <script>
       //1 . 랜덤 숫자 생성하기
       window.onload = function createRandomNumber() {
-        const randomNumber = Math.floor(Math.random() * 100);
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
         console.log("랜덤 숫자를 생성했습니다 : " + randomNumber);
         guessNumber(randomNumber);
       }; // end createRandomNumber()
