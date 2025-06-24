@@ -24,13 +24,13 @@ function calResult() {
 // # 초기화
 function clearInput() {
   inputContainer.value = "";
-  console.log("clearInput()");
+  console.log("clearInput() ; 초기화 되었습니다.");
 } // end clearInput()
 
 //버튼 순회해서 객체 뽑기
 for (let cell of cells) {
   cell.onclick = () => {
-    const cellValue = cell.value;
+    const cellValue = cell.value; //button의 value값 가져오기
     console.log("클릭한 버튼 : " + cellValue);
 
     switch (cellValue) {
