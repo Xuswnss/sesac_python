@@ -101,6 +101,25 @@
           }
         }
       } // end changeEvenCellColor
+
+      function changeOddCellColor2() {
+        /*forEach 첫번째 매개변수는 해당 리스트의 멤버
+            forEach에 인자를 두게 넣으면 첫번째는 리스트의 멤버 두번쨰는 리스트의 인덱스이다.*/
+        Array.from(cells).forEach((c, i) => {
+          if (i % 2 == 0) {
+            cells[i].style.backgroundColor = "lightblue";
+          }
+        });
+      }
+
+      function forOfOddColor() {
+        //for..of
+        let index = 0;
+        for (const c of cells) {
+          console.log(`index : ${index} : 해당 요소 ; ${c}`);
+          index++;
+        }
+      }
     </script>
   </body>
 </html>

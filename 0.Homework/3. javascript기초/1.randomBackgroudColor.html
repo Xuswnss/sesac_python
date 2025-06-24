@@ -3,15 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <title>Random backgroundColor</title>
+    <style>
+      body {
+        text-align: center;
+        height: 100vh; /* viewport 높이의 단위*/
+        align-items: center; /*위에서 아래로 정렬*/
+        display: flex;
+        flex-direction: column; /*위에서 아래로 정력*/
+      }
+      #colorCode {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 900;
+        background-color: rgb(255, 255, 255, 0.7);
+        border: none;
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      button {
+        background-color: aliceblue;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
+        font-size: 10px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: rgb(192, 226, 255);
+      }
+    </style>
   </head>
   <body>
-    <button onclick="changeColor()">배경색 변경하기</button>
+    <button onclick="changeRandomColor2()">배경색 변경하기</button>
     <!-- RGB color의 특성
      - rgb( red, green, blue) 각각(0 ~225) 총 26개     
      
      * Math.random()
      Math.floor(Math.random()*max);
+
+
     -->
+    <div id="colorCode">색상코드는 여기에 표시됩니다.</div>
     <script>
       function changeColor() {
         let red = Math.floor(Math.random() * 256);
@@ -23,6 +58,35 @@
         let randomColor = `rgb(${red}, ${green}, ${blue})`;
         document.body.style.backgroundColor = randomColor;
       } // end changeColor()
+
+      function changeRandomColor() {
+        const r = Math.floor(Math.random() * 256)
+          .toString(16)
+          .padStart(2, "0");
+        const g = Math.floor(Math.random() * 256)
+          .toString(16)
+          .padStart(2, "0");
+        const b = Math.floor(Math.random() * 256)
+          .toString(16)
+          .padStart(2, "0");
+
+        const Hex = "#" + r + g + b;
+        console.log(Hex);
+        document.body.style.backgroundColor = Hex;
+      } //end changeRandomColor
+
+      function changeRandomColor2() {
+        const rrggbb = Math.floor(Math.random() * 1677216)
+          .toString(16)
+          .padStart(6, "0");
+        document.body.style.backgroundColor = "#" + rrggbb;
+        displayColor(rrggbb);
+      } // end changeRandomColor2()
+
+      function displayColor(color) {
+        const colorDisplay = document.getElementById("colorCode");
+        colorDisplay.innerText = `현재 배경색상은 #${color}`;
+      } // end displayColor
     </script>
   </body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>showHide</title>
+    <style>
+      #myDiv {
+        width: 200px;
+        height: 200px;
+        margin-top: 20px;
+        background-color: lightblue;
+        align-content: center;
+        justify-content: center;
+        display: none;
+      }
+
+      .show {
+        display: block !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button onclick="showhideDiv3()">숨겨진 영역 보여주기</button>
+
+    <div id="myDiv">이것이 바로 숨겨진 div입니다.</div>
+  </body>
+
+  <script>
+    function showhideDiv() {
+      const divElement = document.querySelector("#myDiv");
+      console.log("현재 속성 : " + divElement.style.display);
+      if (divElement.style.display !== "block") {
+        divElement.style.display = "block";
+      } else {
+        divElement.style.display = "none";
+      }
+    } // end showhideDiv()
+
+    function showhideDiv2() {
+      const divElement = document.querySelector("#myDiv");
+      //       console.log("현재 속성 : " + divElement.style.display);
+      const divElementStyle = window.getComputedStyle(divElement).display;
+      // 브라우저에게 렌더링이 다 끝난 시점의 스타일을 알려달라고 요청
+      console.log(`최종 렌더링된 디자인은 : ${divElementStyle}`);
+      if (divElementStyle === "none") {
+        divElement.style.display = "block";
+      } else {
+        divElement.style.display = "none";
+      }
+    } // end showhideDiv2()
+
+    function showhideDiv3() {
+      const divElement = document.querySelector("#myDiv");
+      divElement.classList.toggle("show"); // 여러개의 class를 classList라고 한다.
+    } // end showhideDiv3()
+  </script>
+</html>

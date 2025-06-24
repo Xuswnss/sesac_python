@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>countdown_multiple</title>
+  </head>
+  <body>
+    <h1>카운트 다운 타이머</h1>
+    <input type="number" placeholder="초를 입력하세요" id="timeInput" />
+    <button id="startButton" onclick="startTimer()">start</button>
+
+    <div id="timerDisplay"><!--카운트를 표시핪디ㅏ--><div >
+  </body>
+
+  <script>
+    function startTimer() {
+      const startButton = parseInt(document.getElementById("startButton"));
+      const timeInputValue = document.getElementById("timeInput").value;
+      const timerDisplay = document.getElementById("timerDisplay");
+      let timer = timeInputValue; // 그래서 밖으로 빼야함
+
+      // startButton.disabled = true;
+
+      if (timer <= 0 || timer >= 100_000) {
+        alert("0보다 크고 10만보다 작은 수를 입력하세요 입력하세요");
+        return;
+      }
+
+      const newTimer = document.createElement('p')
+      timerDisplay.appendChild(newTimer)
+
+      let timerId = setInterval(() => {
+        // let timer = timeInputValue; -> 계속 값을 가져와서 재사용 중이라 무한루프가 된다.
+        if (timer <= 0) {
+          timerDisplay.textContent = "카운팅 종료";
+          clearInterval(timerId);
+          // startButton.disabled = false;
+        } else {
+          timerDisplay.textContent = `${timer} 카운팅`;
+          console.log("현재 타이머 : " + timer);
+          timer--;
+        }
+      }, 1000);
+    } // end startTimer()
+  </script>
+</html>
