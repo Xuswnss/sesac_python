@@ -3,6 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <title>NumberGuess!</title>
+    <link rel="stylesheet" href="./css/numberGuess.css" />
   </head>
-  <body></body>
+  <!-- 1. 1~100까지의 랜덤 숫자를 생성한다								
+      2. 숫자를 입력하면 그게 너무 큰지/작은지 (또는 정답인지) 알려준다								
+      3. 직접 내가 만든 게임을 풀면서, 어떻게 하면 이 게임을 가장 잘~~ 할 수 있는지 고민해본다. 
+      (나는 최소 몇번만에 무조건 이 게임을 맞출수 있다!!) -->
+  <body>
+    <h1>
+      숫자 맞추기 게임 <br />
+      (1~100)
+    </h1>
+    <div class="container">
+      <input type="number" id="inputValue" />
+      <button id="guessButton">Guess</button>
+    </div>
+    <hr />
+    <p id="answer"></p>
+    <div id="historyContainer"></div>
+
+    <script>
+      //1 . 랜덤 숫자 생성하기
+      window.onload = function createRandomNumber() {
+        const randomNumber = Math.floor(Math.random() * 100);
+        console.log("랜덤 숫자를 생성했습니다 : " + randomNumber);
+        guessNumber(randomNumber);
+      }; // end createRandomNumber()
+
+      // 2. 제약사항
+      function constraints(number) {
+        const answerContainer = document.getElementById("answer");
+        if (number <= 0 || number > 100) {
+          alert("1~100사이의 수를 입력해주세요");
+          answerContainer.innerHTML = " ";
+        }
+      }
+
+      //3 . 값 비교 함수 작성하기
+      function guessNumber(number) {
+        console.log(" 값이 잘 들어왔나요 ? ;random number : " + number); //값이 잘 받아왔는지 확인
+        // input 입력값 가져오기
+        const guessButton = document.getElementById("guessButton");
+        const historyContainer = document.getElementById("historyContainer");
+
+        guessButton.onclick = () => {
+          let inputNumberValue = document.getElementById("inputValue").value;
+          const answerContainer = document.getElementById("answer");
+          console.log("입력한 값 : " + inputNumberValue);
+
+          // 숫자 비교
+
+          if (inputNumberValue > number) {
+            console.log("값이 랜덤값보다 큽니다");
+            answerContainer.innerHTML = `<b>입력하신 값 ${inputNumberValue}가 랜덤값보다 큽니다.</b>`;
+          } else if (inputNumberValue < number) {
+            console.log("값이 랜덤값보다 작습니다");
+            answerContainer.innerHTML = `<b>입력하신 값 ${inputNumberValue}가 랜덤값보다 작습니다.</b>`;
+          } else if ((inputNumberValue = number)) {
+            console.log("값이 일치합니다");
+            answerContainer.innerHTML = `<b>입력하신 값 ${inputNumberValue}가 랜덤값과 일치합니다.</b>`;
+            guessButton.disabled = true;
+            historyContainer.remove();
+            alert("정답입니다.");
+          }
+          constraints(inputNumberValue);
+
+          // 기록 넣기
+
+          const historyItem = document.createElement("p");
+          if (inputNumberValue <= 0 || inputNumberValue > 100) {
+            historyItem.innerHTML = "";
+          } else {
+            historyItem.innerText = `예상값 : ${inputNumberValue}`;
+            historyContainer.appendChild(historyItem);
+          }
+        };
+      } // end guessNumber()
+    </script>
+  </body>
 </html>
