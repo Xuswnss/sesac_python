@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DragAndDrop</title>
+    <style>
+      #dragItem {
+        width: 100px;
+        height: 100px;
+        background-color: orange;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      #dragZone {
+        width: 200px;
+        height: 200px;
+        border: 2px dashed #ffff;
+        background-color: black;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dragItem" draggable="true">드래그 하시오</div>
+    <div id="dragZone">여기에 떨구시오</div>
+    <script>
+      const dragItem = document.getElementById("dragItem");
+      const dragZone = document.getElementById("dragZone");
+
+      dragItem.addEventListener("dragstart", () => {
+        console.log("드래그 시작됨");
+      });
+      dragZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        console.log("올라옴");
+      });
+      dragZone.addEventListener("drop", (e) => {
+        console.log("놨음");
+        dragZone.appendChild(dragItem);
+      });
+    </script>
+  </body>
+</html>

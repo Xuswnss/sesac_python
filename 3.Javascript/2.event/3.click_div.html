@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>click_div</title>
+    <style>
+      #myDiv {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDiv"></div>
+    <script>
+      //       document.getElementById("myDiv").addEventListener("mouseup", (e) => {
+      //         console.log("상자를 클릭하셨습니다 " + e.button);
+
+      //         switch (event.button) {
+      //           case 0:
+      //             console.log("좌클릭 이벤트 발생함");
+      //             break;
+      //           case 1:
+      //             console.log("중간 이벤트 발생함");
+      //             break;
+      //         }
+      //       });
+
+      document.getElementById("myDiv").addEventListener("dblClick", () => {
+        console.log("double click");
+      });
+    </script>
+  </body>
+</html>

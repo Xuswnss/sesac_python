@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DragAndDrop_file</title>
+    <style>
+      #dropZone {
+        width: 300px;
+        height: 200px;
+        border: 2px dashed #cccccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dropZone">여기에 파일을 드래그 하세요</div>
+    <div id="fileList">
+      <button id="sendButton">sendButton</button>
+      <h3>드롭된 파일 목록 :</h3>
+
+      <ul id="fileNames"></ul>
+    </div>
+    <script>
+      const dropZone = document.getElementById("dropZone");
+      const fileNames = document.getElementById("fileNames");
+      const sendButton = document.getElementById("sendButton");
+
+      let fileArray = [];
+
+      dropZone.addEventListener("dragover", function (event) {
+        event.preventDefault();
+        this.style.backgroundColor = "orange";
+      });
+
+      dropZone.addEventListener("drop", function (e) {
+        e.preventDefault();
+        dropZone.style.backgroundColor = "pink";
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          for (let i = 0; i < files.length; i++) {
+            fileArray.push(files[i]);
+            const li = document.createElement("li");
+            li.textContent = files[i].name;
+            fileNames.appendChild(li);
+          }
+        }
+      });
+
+      //       Array.from(files).forEach((file) => {
+      //         const li = document.createElement("li");
+      //       fileArray.push(file);
+      //         li.textContent = file.name;
+      //         fileNames.appendChild(li);
+      //       });
+
+      sendButton.addEventListener("click", function () {
+        console.log(fileArray);
+        if (fileArray.length == 0) {
+          alert("업로드 할 파일이 없습니다");
+          return;
+        }
+
+        const formData = new FormData();
+        fileArray.forEach((f, i) => {
+          formData.append("files[]", file);
+        });
+        //서버로 실제 전송하기
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => {
+            res.text();
+          })
+          .then((result) => {
+            alert("업로드 성공");
+          })
+          .catch((e) => {
+            alert("fail upload : " + e);
+          });
+      });
+    </script>
+  </body>
+</html>

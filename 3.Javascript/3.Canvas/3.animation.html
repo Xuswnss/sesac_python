@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animation</title>
+    <style>
+      #myCanvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const context = canvas.getContext("2d"); //그림을 그릴 공간에 접근하는 포인터
+      let x = 100;
+      let y = 100;
+
+      function drawPacman() {
+        //2. 팩맨 그리기
+        context.fillStyle = "yellow";
+        context.beginPath();
+        context.moveTo(x, y);
+        const startAngle = 0.2 * Math.PI;
+        const endAngle = 1.8 * Math.PI;
+        context.arc(x, y, 30, startAngle, endAngle);
+        context.fill();
+        context.closePath();
+      } // end drawPacman()
+
+      // 1. 키 누를 때 마다 x,y좌표를 내가 정한 크기만큼 이동한다
+      // 2. 키를 누를 때 마다 해당 방향으로 연속적으로 이동한다.
+
+      function movement(e) {} // end movement()
+
+      function animate() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawPacman();
+
+        requestAnimationFrame(animate);
+      } // end draw
+
+      animate();
+    </script>
+  </body>
+</html>

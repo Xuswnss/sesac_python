@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>navigator</title>
+  </head>
+  <body>
+    <h1>브라우저 정보</h1>
+    <div>user agent : <span id="userAgent"></span></div>
+    <div>language : <span id="language"></span></div>
+    <div>online status : <span id="onlineStatus"></span></div>
+    <button id="getLocation">위치정보 가져오기</button>
+    <p id="location"></p>
+    <script>
+      document.getElementById("userAgent").textContent = navigator.userAgent;
+      document.getElementById("language").textContent = navigator.language;
+      document.getElementById("onlineStatus").textContent = navigator.onLine;
+      document.getElementById("getLocation").addEventListener("click", () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            document.getElementById(
+              "location"
+            ).textContent = `위도 : ${latitude}, 경도 : ${longitude}`;
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

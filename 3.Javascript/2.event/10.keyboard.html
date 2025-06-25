@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>keyboard</title>
+    <style>
+      #displayKey {
+        font-size: 100px;
+        text-align: center;
+        margin-top: 50px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="myInput" placeholder="글자를 입력하세요" />
+    <div id="displayKey"></div>
+    <script>
+      document.getElementById("myInput").addEventListener("keydown", (e) => {
+        console.log("키보드가 눌려짐 : " + e.key);
+        const displayKey = document.getElementById("displayKey");
+        displayKey.textContent = e.key;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mouse over</title>
+    <style>
+      #myDiv {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDiv"></div>
+    <script>
+      const myDiv = document.getElementById("myDiv");
+      document.getElementById("myDiv").addEventListener("mouseover", () => {
+        console.log("마우스가 올라갔다");
+        myDiv.style.background = "lightblue";
+        //         this.style.backgroundColor = "lightblue"; -> 화살표 함수는 this를 감지 못함
+        // 익명함수는 this 가능
+      });
+      document.getElementById("myDiv").addEventListener("mouseout", () => {
+        console.log("마우스가 나가");
+        myDiv.style.backgroundColor = "pink";
+      });
+
+      document.getElementById("myDiv").addEventListener("mousemove", (e) => {
+        console.log("move : " + e.clientX + " " + e.clientY);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webCam</title>
+  </head>
+  <body>
+    <h1>start webcam</h1>
+    <video src="" id="webCam" autoplay playsinline></video>
+    <p id="error"></p>
+    <script>
+      const videoElement = document.getElementById("webCam");
+      const errorElement = document.getElementById("error");
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((s) => {
+          videoElement.srcObject = s;
+        })
+        .catch((e) => {
+          errorElement.textContent = `웹  캠 접근 실패 : ${e.message}`;
+        });
+    </script>
+  </body>
+</html>

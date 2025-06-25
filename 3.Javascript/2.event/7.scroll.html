@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scroll</title>
+    <style>
+      #content {
+        height: 2000px;
+        background: linear-gradient(to bottom, blue 0%, red 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      window.addEventListener("scroll", () => {
+        console.log("페이지 스크롤됨");
+        const scrollPosition =
+          window.pageYOffset || document.documentElement.scrollIntoView;
+        console.log("현재 스크롤바 위치", scrollPosition);
+      });
+    </script>
+  </body>
+</html>

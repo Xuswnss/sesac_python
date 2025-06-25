@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>click_right</title>
+    <style>
+      #myDiv {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDiv"></div>
+    <script>
+      document.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        alert("우클릭이 금지되었습니다.");
+      });
+      document.getElementById("myDiv").addEventListener("contextmenu", (e) => {
+        e.preventDefault(); // 본연의 기능이 동작하지 않도록 함
+        console.log("우클릭 감지됨");
+      });
+    </script>
+  </body>
+</html>

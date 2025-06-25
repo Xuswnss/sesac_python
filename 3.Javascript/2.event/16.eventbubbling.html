@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eventBubbling</title>
+    <style>
+      #grandParent {
+        padding: 50px;
+        background-color: lightgrey;
+      }
+
+      #parent {
+        padding: 50px;
+        background-color: lightblue;
+      }
+
+      #child {
+        padding: 50px;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="grandParent">
+      조상
+      <div id="parent">
+        부모
+        <div id="child">자식</div>
+      </div>
+    </div>
+
+    <script>
+      const grandParent = document.getElementById("grandParent");
+      const parent = document.getElementById("parent");
+      const child = document.getElementById("child");
+      //계층 구조에 맞게 내 이벤트가 상위 부모로 전파되는 현상을 이벤트 버블링이라고 부른다.
+      grandParent.addEventListener("click", () => {
+        alert("grandParent clicked");
+      });
+      parent.addEventListener("click", (e) => {
+        alert("parent clicked");
+        e.stopPropagation; // 이벤트 버블링을 없애주는 것
+      });
+      child.addEventListener("click", (e) => {
+        alert("child clicked");
+        e.stopPropagation();
+      });
+    </script>
+  </body>
+</html>

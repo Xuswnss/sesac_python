@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>input</title>
+  </head>
+  <body>
+    <input type="text" id="myInput" placeholder="click me!" />
+    <p id="inputLength"></p>
+    <script>
+      document.getElementById("myInput").addEventListener("focus", () => {
+        console.log("focus");
+      });
+
+      document.getElementById("myInput").addEventListener("blur", () => {
+        console.log("unfocus");
+      });
+
+      document.getElementById("myInput").addEventListener("blur", () => {
+        console.log("unfocus");
+        const inputLength = document.getElementById("myInput").value.length;
+        //         const inputLength = this.value.length;
+        document.getElementById("inputLength").textContent =
+          inputLength + "글자를 입력함";
+      });
+    </script>
+  </body>
+</html>
