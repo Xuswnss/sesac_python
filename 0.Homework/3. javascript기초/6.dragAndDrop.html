@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DragAndDrop</title>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+      }
+
+      .draggable {
+        padding: 20px;
+        cursor: grab;
+        margin: 10px;
+      }
+
+      #box1 {
+        background-color: gold;
+      }
+
+      #box2 {
+        background-color: cyan;
+      }
+
+      #box3 {
+        background-color: violet;
+      }
+
+      .dropzone {
+        min-width: 150px;
+        min-height: 100px;
+        border: 2px dashed #aaa;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        margin-top: 10px;
+        background-color: #f4f4f4;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="drag-group" id="group1">
+        <div class="draggable" draggable="true" id="box1">Drag me</div>
+        <div class="draggable" draggable="true" id="box2">Drag me</div>
+        <div class="draggable" draggable="true" id="box3">Drag me</div>
+      </div>
+
+      <div class="drag-group">
+        <div class="dropzone">Drop here</div>
+      </div>
+    </div>
+
+    <script>
+      const draggables = document.querySelectorAll(".draggable");
+      const dropzones = document.querySelectorAll(".dropzone");
+
+      draggables.forEach((item) => {
+        item.addEventListener("dragstart", () => {
+          console.log("드래깅시작");
+          item.classList.add("dragging");
+        });
+
+        item.addEventListener("dragend", () => {
+          item.classList.remove("dragging");
+        });
+      });
+
+      dropzones.forEach((zone) => {
+        zone.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          zone.classList.add("drag-over");
+          console.log("드래깅중");
+        });
+
+        zone.addEventListener("dragleave", () => {
+          zone.classList.remove("drag-over");
+          console.log("놓음");
+        });
+
+        zone.addEventListener("drop", (e) => {
+          const dragged = document.querySelector(".dragging");
+          if (dragged) {
+            console.log("드래그 됨? : " + e.returnValue);
+            zone.appendChild(dragged);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
