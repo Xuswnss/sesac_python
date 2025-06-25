@@ -1,6 +1,14 @@
 const cells = document.querySelectorAll("button");
 const inputContainer = document.getElementById("input-container");
 
+/**
+ *
+ * 예외
+ * 1. 0으로 나눌 수 없다
+ * 2. symbol이 연속으로 나올 수 없다.
+ * 3. 띄어쓰기를 없애기
+ */
+
 // # input창에 값 추가하기
 function addInput(value) {
   inputContainer.value += value;
@@ -16,10 +24,31 @@ function calResult() {
     console.log("올바른 식 입력");
     return;
   }
-  const result = eval(inputContainer.value);
-  inputContainer.value = result;
-  console.log("계산 결과 : " + result);
+  // 나눗세밍 0인지 별도확인
+  if (isDivisionByZero(inputContainer.value)) {
+    inputContainer.value = "0으로 나눌 수 없습니다.";
+  }
+
+  try {
+    const result = eval(inputContainer.value);
+    inputContainer.value = result;
+    console.log("계산 결과 : " + result);
+  } catch (error) {
+    console.log("발생한 오류 :" + error);
+    inputContainer.value = "처리할 수 없습니다.";
+  }
 } // end calResult
+
+function isDivisionByZero(expression) {
+  for (let i = 0; i < expression.length; i++) {
+    if (expression[i] === "/") {
+      let current_position = i + 1;
+      if (expression[current_position] === "0") {
+        return true;
+      }
+    }
+  }
+} //end inDivision(expression)
 
 // # 초기화
 function clearInput() {
