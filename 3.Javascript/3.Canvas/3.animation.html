@@ -18,6 +18,10 @@
       const context = canvas.getContext("2d"); //그림을 그릴 공간에 접근하는 포인터
       let x = 100;
       let y = 100;
+      const pacmanDiameters = 30;
+      const rightNewX = canvas.width - pacmanDiameters;
+      const leftNewX = canvas.width + pacmanDiameters;
+      const rightNewY = canvas.height - pacmanDiameters;
 
       function drawPacman() {
         //2. 팩맨 그리기
@@ -26,15 +30,47 @@
         context.moveTo(x, y);
         const startAngle = 0.2 * Math.PI;
         const endAngle = 1.8 * Math.PI;
-        context.arc(x, y, 30, startAngle, endAngle);
+        context.arc(x, y, pacmanDiameters, startAngle, endAngle);
         context.fill();
         context.closePath();
+        document.addEventListener("keydown", movement);
       } // end drawPacman()
 
       // 1. 키 누를 때 마다 x,y좌표를 내가 정한 크기만큼 이동한다
       // 2. 키를 누를 때 마다 해당 방향으로 연속적으로 이동한다.
+      /**
+       * arrowup
+       * arrowDown
+       * arrowleft
+       * arrowRight
+       */
+      console.log(`canvas 크기 : ${canvas.width}, ${canvas.height}`);
+      function movement(e) {
+        console.log(e.key);
+        console.log(`현재 위치 : ${x}, ${y}`);
+        if (x > rightNewX || y > rightNewY) {
+          console.log("Canvas 밖을 넘어감");
+          x = rightNewX;
+          //           y = rightNewY;
+        }
+        switch (e.key) {
+          case "ArrowUp":
+            y -= 5;
 
-      function movement(e) {} // end movement()
+            break;
+          case "ArrowDown":
+            y += 5;
+            break;
+          case "ArrowLeft":
+            x -= 5;
+            break;
+          case "ArrowRight":
+            x += 5;
+            break;
+
+          default:
+        }
+      } // end movement()
 
       function animate() {
         context.clearRect(0, 0, canvas.width, canvas.height);
