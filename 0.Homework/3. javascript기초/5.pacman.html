@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animation</title>
+    <style>
+      #myCanvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+      // # 전역 변수지정
+      const canvas = document.getElementById("myCanvas");
+      const context = canvas.getContext("2d");
+      let x = 100;
+      let y = 100;
+      const pacmanDiameters = 30;
+      const rightX = canvas.width - pacmanDiameters;
+      const rightY = canvas.height - pacmanDiameters;
+
+      // #팩맨 그리기
+      function drawPacman() {
+        context.fillStyle = "yellow";
+        context.beginPath();
+        context.moveTo(x, y);
+        const startAngle = 0.2 * Math.PI;
+        const endAngle = 1.8 * Math.PI;
+        context.arc(x, y, pacmanDiameters, startAngle, endAngle);
+        context.fill();
+        context.closePath();
+        document.addEventListener("keydown", movement);
+      } // end drawPacman()
+
+      console.log(`canvas 크기 : ${canvas.width}, ${canvas.height}`);
+
+      // # movement
+      function movement(e) {
+        console.log(e.key);
+        console.log(`현재 위치 : ${x}, ${y}`);
+
+        switch (e.key) {
+          case "ArrowUp":
+            if (y - 5 >= pacmanDiameters) {
+              y -= 5;
+            } else {
+              console.log("stop");
+            }
+            break;
+
+          case "ArrowDown":
+            if (y + 5 <= rightY) {
+              y += 5;
+            } else {
+              console.log("아래쪽 경계에 도달!");
+            }
+            break;
+
+          case "ArrowLeft":
+            if (x - 5 >= pacmanDiameters) {
+              x -= 5;
+            } else {
+              console.log("왼쪽 경계에 도달!");
+            }
+            break;
+
+          case "ArrowRight":
+            if (x + 5 <= rightX) {
+              x += 5;
+            } else {
+              console.log("오른쪽 경계에 도달!");
+            }
+            break;
+
+          default:
+            break;
+        }
+      } // end movement()
+
+      // 그리기 함수
+      function animate() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawPacman();
+
+        requestAnimationFrame(animate);
+      } // end draw
+
+      animate();
+    </script>
+  </body>
+</html>
