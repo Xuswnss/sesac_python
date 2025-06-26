@@ -1,0 +1,106 @@
+:root {
+  --font-color: rgb(45, 18, 0);
+  --brown: rgb(116, 81, 45);
+  --blue: rgb(87, 143, 202);
+  --container: rgb(245, 240, 205);
+  --li: rgb(247, 245, 233);
+  --button: rgb(250, 218, 122);
+  --border: rgb(250, 218, 122);
+  --completed: rgb(125, 92, 92);
+}
+
+body {
+  color: var(--font-color);
+  width: 100vh;
+  background-color: var(--brown);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#addTodo {
+  height: 30px;
+  width: 40px;
+  border: 20px;
+  background-color: var(--button);
+  border-radius: 10px;
+}
+#userInput {
+  border: none;
+  width: 330px;
+  height: 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin-right: 10px;
+}
+.innerText {
+  width: fit-content;
+}
+
+#userInput:focus {
+  border: 1px solid var(--border);
+  outline: none;
+}
+
+#container {
+  width: 400px;
+  height: 70vh;
+  background-color: var(--container);
+  display: inline-block;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+ul {
+  padding-left: 0;
+  height: 60vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+ul::-webkit-scrollbar {
+  display: none;
+}
+
+#container ul li {
+  padding-left: 0;
+  width: 350px;
+  background-color: var(--li);
+  padding: 15px;
+  border-radius: 20px;
+  /* border: 1px solid var(--border); */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* 텍스트 컨테이너 스타일 */
+.innerText {
+  width: fit-content;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: var(--completed);
+}
+/* 완료된 항목 스타일 - innerText 클래스와 함께 사용 .innerText.completed {
+  display: inline;
+  width: fit-content;
+  text-decoration: line-through;
+  color: var(--completed);
+} */
+
+.deleteButton {
+  margin-left: auto;
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #999;
+  width: auto;
+  text-decoration: none !important;
+}
