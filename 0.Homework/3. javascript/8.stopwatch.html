@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stopwatch</title>
+    <link rel="stylesheet" href="./css/stopwatch.css" />
+  </head>
+  <body>
+    <div id="mainContainer">
+      <div id="stopwatch">00:00.00</div>
+      <div id="error">already running</div>
+      <div id="buttonContainer">
+        <button id="startButton">start</button>
+        <button id="stopButton">stop</button>
+        <button id="resetButton">reset</button>
+      </div>
+    </div>
+    <script>
+      let stopwatch = document.getElementById("stopwatch");
+      let stopBtn = document.getElementById("stopButton");
+      let startBtn = document.getElementById("startButton");
+      let errorMessage = document.getElementById("error");
+      let milliseconds = 0;
+      let interval = false;
+
+      stopBtn.addEventListener("click", () => stop());
+
+      startBtn.addEventListener("click", () => start());
+      document
+        .getElementById("resetButton")
+        .addEventListener("click", () => reset());
+
+      function displayTimer() {
+        milliseconds += 10; // 10ms씩 증가
+        const minute = String(Math.floor(milliseconds / 60000)).padStart(
+          2,
+          "0"
+        );
+        const second = String(
+          Math.floor((milliseconds % 60000) / 1000)
+        ).padStart(2, "0");
+        const millisecond = String(
+          Math.floor((milliseconds % 1000) / 10)
+        ).padStart(2, "0");
+        stopwatch.innerText = `${minute}:${second}.${millisecond}`;
+      } // end displayTimer()
+
+      function stop() {
+        clearInterval(interval);
+        interval = null;
+        console.log("stop");
+      } // end stop()
+
+      function start() {
+        console.log("start");
+        if (interval) {
+          showErrorMessage();
+          //           alert("already running");
+          return;
+        }
+
+        interval = setInterval(displayTimer, 10);
+      } // end start()
+
+      function reset() {
+        stop();
+        milliseconds = 0;
+        stopwatch.innerText = "00:00.00";
+
+        console.log("reset");
+      } // end reset()
+
+      function showErrorMessage() {
+        errorMessage.style.display = "block";
+        setTimeout(() => {
+          errorMessage.style.display = "none";
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
