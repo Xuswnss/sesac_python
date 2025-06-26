@@ -1,0 +1,32 @@
+html {
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(242, 255, 63, 0.807) 25%,
+    rgb(181, 251, 112) 100%
+  );
+  background-repeat: no-repeat;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+img {
+  background-color: rgb(181, 251, 112);
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+}
+
+#showImage {
+  width: 450px;
+  height: 450px;
+  background-color: rgb(220, 255, 160);
+  border: 1px dashed rgb(171, 171, 171);
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
