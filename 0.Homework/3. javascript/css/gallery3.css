@@ -1,0 +1,39 @@
+html {
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(242, 255, 63, 0.807) 25%,
+    rgb(181, 251, 112) 100%
+  );
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  background-color: rgb(181, 251, 112);
+  border-radius: 10px;
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+}
+
+#buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#buttonContainer button {
+  border: 10px;
+  margin: 20px;
+  width: 50px;
+  height: 20px;
+  border: 1px solid yellowgreen;
+  background-color: lightgoldenrodyellow;
+}
+
+#buttonContainer button:hover {
+  background-color: rgb(182, 254, 49);
+}
