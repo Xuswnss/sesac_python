@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>gallery3</title>
-    <link rel="stylesheet" href="./css/gallery2.css" />
+    <link rel="stylesheet" href="./css/gallery3.css" />
   </head>
   <body>
     <div id="sliderContaienr">
@@ -34,24 +34,46 @@
 
     <script>
       const wishImage = document.getElementsByClassName("wish");
-      let current = 1;
+      let current = 0;
+      let autoSlide;
 
-      function showOnlyCurrent() {
+      function showCurrentImg() {
         Array.from(wishImage).forEach((img, idx) => {
           img.style.display = idx === current ? "block" : "none";
         });
-      }
+        document.getElementById("prevBtn").disabled = current === 0;
+        document.getElementById("nextBtn").disabled =
+          current === wishImage.length - 1;
+      } // end showCurrentImg
 
-      showOnlyCurrent();
+      function startAutoSlide() {
+        autoSlide = setInterval(() => {
+          if (current < wishImage.length - 1) {
+            current++;
+            showCurrentImg();
+          } else {
+            clearInterval(autoSlide);
+          }
+        }, 3000);
+      } //end startAutoSlide()
 
       document.getElementById("prevBtn").onclick = function () {
-        current = (current - 1 + wishImage.length) % wishImage.length;
-        showOnlyCurrent();
+        if (current > 0) {
+          current--;
+          showCurrentImg();
+          clearInterval(autoSlide);
+        }
       };
       document.getElementById("nextBtn").onclick = function () {
-        current = (current + 1) % wishImage.length;
-        showOnlyCurrent();
+        if (current < wishImage.length - 1) {
+          current++;
+          showCurrentImg();
+          clearInterval(autoSlide);
+        }
       };
+
+      showCurrentImg();
+      startAutoSlide();
     </script>
   </body>
 </html>
