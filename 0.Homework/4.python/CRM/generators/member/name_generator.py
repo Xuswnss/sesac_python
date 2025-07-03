@@ -13,7 +13,7 @@ class NameGenerator:
         return random.choice(self.names)
         
 if __name__ == "__main__":
-    generator = NameGenerator('text/name.text')
+    generator = NameGenerator('data/name.text')
     name_list = [generator.generate_name() for _ in range(50)]
     for name in name_list:
         print(name)

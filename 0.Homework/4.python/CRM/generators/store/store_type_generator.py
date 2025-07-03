@@ -13,7 +13,7 @@ class StoreTypeGenerator:
         return random.choice(self.store_name)
         
 if __name__ == "__main__":
-    generator = StoreTypeGenerator('text/store_type.text')
+    generator = StoreTypeGenerator('data/store_type.text')
     name_list = [generator.generate_name() for _ in range(10)]
     for name in name_list:
         print(name)
