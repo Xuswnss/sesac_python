@@ -19,7 +19,7 @@ class ItemGenerator:
             return result
             
     
-    def generator_item(self, count):
+    def generator(self, count):
         items = []
         for _ in range(count):
             itemId = self.generate_itemId.generate_id()
@@ -30,12 +30,12 @@ class ItemGenerator:
     
 class DisplayData(ItemGenerator):
     def print_data(self, count):
-        data = self.generator_item(count)
+        data = self.generator(count)
         for item_id, item_name, item_type, unitprice in data:
             print(f'Id:{item_id}\nName:{item_name}\nType:{item_type}\nUnitPrice:{unitprice}\n')
             
     def save_to_csv(self, count, file_name):
-        data = self.generator_item(count)
+        data = self.generator(count)
         
         header = ['Id', 'Name', 'Type', 'UnitPrice']
         with open (file_name, mode='w', newline='', encoding='utf-8') as file:

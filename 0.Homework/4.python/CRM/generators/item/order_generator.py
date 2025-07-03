@@ -18,7 +18,7 @@ class OrderGenerator:
     def generate_orderAt(self):
         return self.date_generator.generate_date_time()
 
-    def generator_order(self, count):
+    def generator(self, count):
         orders = []
         for _ in range(count):
             order_id = self.id_generator.generate_id()
@@ -30,7 +30,7 @@ class OrderGenerator:
     
 class DisplayData(OrderGenerator):
     def print_data(self, count):
-        data = self.generator_order(count)
+        data = self.generator(count)
         for id ,orderAt, storeId, userId in data:
             print(f'Id:{id}\norderAt:{orderAt}\nstoreId:{storeId}\nuserId:{userId}\n')
             

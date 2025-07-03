@@ -14,7 +14,7 @@ class OrderItemGenerator:
         self.itemId= pd.read_csv('csv/item_data.csv', header=None)[0].tolist()
     
     
-    def generator_orderItem(self, count):
+    def generator(self, count):
         orderItems = []
         for _ in range(count):
             orderItemId = self.id_generator.generate_id()
@@ -25,12 +25,12 @@ class OrderItemGenerator:
     
 class DisplayData(OrderItemGenerator):
     def print_data(self, count):
-        data = self.generator_orderItem(count)
+        data = self.generator(count)
         for id, orderId, itemId in data:
             print(f'Id:{id}\nOrderId:{orderId}\nItemId:{itemId}\n')
             
     def save_to_csv(self,count,file_name):
-        data = self.generator_orderItem(count)
+        data = self.generator(count)
         header = [ 'Id', 'OrderId', 'ItemId']
         with open(file_name, mode='w', newline='', encoding='utf-8') as file :
             writer = csv.writer(file)

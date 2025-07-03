@@ -13,14 +13,14 @@ from .age_generator import AgeGenerator
 
 class UserGenerator:
     def __init__(self):
-        self.generate_name = NameGenerator('text/name.text')
+        self.generate_name = NameGenerator('data/name.text')
         self.generate_birthday = DateGenerator()
         self.generate_gender = GenderGenerator()
         self.generate_address = AddressGenerator('csv/region_list.csv')
         self.generate_userId = IdGenerator()
         self.generate_age = AgeGenerator()
         
-    def generator_user(self, count):
+    def generator(self, count):
         users =[]
         for _ in range(count):
             name = self.generate_name.generate_name()
@@ -35,12 +35,12 @@ class UserGenerator:
     
 class DisplayData(UserGenerator):
     def print_data(self, count):
-        data = self.generator_user(count)
+        data = self.generator(count)
         for id, name, gender, age,  birthday, address in data:
             print(f'ID:{id}\nName:{name}\nGender:{gender}\nAge:{age}\nBirthday:{birthday}\nAddress:{address}\n')
             
     def save_to_csv(self,count,file_name):
-        data = self.generator_user(count)
+        data = self.generator(count)
         
         header = ['ID', 'Name', 'Gender', 'Age', 'Birthday', 'Address']
         

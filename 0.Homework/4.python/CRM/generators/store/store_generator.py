@@ -11,10 +11,11 @@ class StoreGenerator:
     def __init__(self):
         self.generate_storeId = IdGenerator()
         self.generate_store_name_and_address = StoreNameGenerator()
-        self.generate_store_type = StoreTypeGenerator('text/store_type.text')
+        self.generate_store_type = StoreTypeGenerator('data/store_type.text')
         
     
-    def generator_store(self, count):
+    def generator(self, count):
+        
         stores = []
         for _ in range(count):
             store_id = self.generate_storeId.generate_id()
@@ -27,12 +28,12 @@ class StoreGenerator:
 
 class DisplayData(StoreGenerator):
     def print_data(self, count):
-        data = self.generator_store(count)
+        data = self.generator(count)
         for store_id, store_name, store_type , store_address in  data:
             print(f'Store_id:{store_id}\nStore_name:{store_name}\nStore_type:{store_type}\nStore_address:{store_address}\n')
             
     def save_to_csv(self, count , file_name):
-        data = self.generator_store(count)
+        data = self.generator(count)
         
         header = ['Id', 'Name', 'Type', 'Address']
         with open(file_name, mode = 'w', newline='',encoding = 'utf-8') as file:
