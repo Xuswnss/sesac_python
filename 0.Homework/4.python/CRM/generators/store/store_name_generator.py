@@ -22,9 +22,9 @@ class StoreNameGenerator:
         parts = address.split()
         sigungu = ''
         sigungu = parts[1]
-        if len(parts) <= 2:
+        if len(parts[1]) <= 2:
             sigungu = parts[1]
-            if sigungu.endswith('구') or sigungu.endswith('군'):
+        elif sigungu.endswith('구') or sigungu.endswith('군') or sigungu.endswith('시'):
                 sigungu = sigungu[:-1]
         return address, sigungu
     

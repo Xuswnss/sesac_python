@@ -47,6 +47,6 @@ def main():
     generator.save_to_csv(100, './csv/store_data.csv')
 
 if __name__ == "__main__":
-    # generator = DisplayData()
-    # generator.print_data(100)
-    main()
+    generator = DisplayData()
+    generator.print_data(100)
+    # main()
