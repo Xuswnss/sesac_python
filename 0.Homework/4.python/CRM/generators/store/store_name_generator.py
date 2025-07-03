@@ -5,8 +5,8 @@ import csv
 sys.path.append('/Users/hyeonjiyun/Desktop/src/sesac/SESAC_PY3/sesac_python/0.Homework/4.python/CRM')
 from generators.address_generator import AddressGenerator
 # 1. 주소 생성
-# 2. 주소에서 '구' 추출
-# 3. '구'를 뽑고 '구'제거
+# 2. 주소에서 '시군구' 추출
+# 3. '구'를 뽑고 '시, 군, 구'제거 (2글자 이하 -> 예) 중구 -> 구 붙이기)
 # 4. type + 구 + 랜덤Num + 호점 붙이기
 
 class StoreNameGenerator:
