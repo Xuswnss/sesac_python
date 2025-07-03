@@ -4,8 +4,8 @@ import csv
 sys.path.append('/Users/hyeonjiyun/Desktop/src/sesac/SESAC_PY3/sesac_python/0.Homework/4.python/CRM')
 #Id,Name,Type,Address
 from generators.id_generator import IdGenerator
-from store_name_generator import StoreNameGenerator # address, type
-from store_type_generator import StoreTypeGenerator
+from .store_name_generator import StoreNameGenerator # address, type
+from .store_type_generator import StoreTypeGenerator
 
 class StoreGenerator:
     def __init__(self):

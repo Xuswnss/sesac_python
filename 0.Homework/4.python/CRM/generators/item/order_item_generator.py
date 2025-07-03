@@ -7,7 +7,7 @@ sys.path.append('/Users/hyeonjiyun/Desktop/src/sesac/SESAC_PY3/sesac_python/0.Ho
 from generators.id_generator import IdGenerator
 
 
-class OrderItem:
+class OrderItemGenerator:
     def __init__(self):
         self.id_generator = IdGenerator()
         self.orderId = pd.read_csv('csv/order_data.csv', header=None)[0].tolist()
@@ -23,7 +23,7 @@ class OrderItem:
             orderItems.append((orderItemId, orderId, itemId))
         return orderItems
     
-class DisplayData(OrderItem):
+class DisplayData(OrderItemGenerator):
     def print_data(self, count):
         data = self.generator_orderItem(count)
         for id, orderId, itemId in data:

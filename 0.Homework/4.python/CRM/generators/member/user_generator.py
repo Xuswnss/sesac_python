@@ -6,9 +6,9 @@ sys.path.append('/Users/hyeonjiyun/Desktop/src/sesac/SESAC_PY3/sesac_python/0.Ho
 from generators.address_generator import AddressGenerator
 from generators.date_generator import DateGenerator
 from generators.id_generator import IdGenerator
-from gender_generator import GenderGenerator
-from name_generator import NameGenerator
-from age_generator import AgeGenerator
+from .gender_generator import GenderGenerator
+from .name_generator import NameGenerator
+from .age_generator import AgeGenerator
 
 
 class UserGenerator:
