@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>flask app.4 </h1>
+<h2>사용자 검색</h2>
+    <form action="/" method="GET" >
+    <input type="text" name ='name'>
+    <input type="submit" value="검색">
+</form>
+    <table border="1px solid black">
+        <tr>
+            <th>name</th>
+            <th>age</th>
+            <th>mobile</th>
+        </tr>
+        {%for user in users%}
+        <tr>
+            <td>{{user['name']}}<td>
+            <td>{{user['age']}}</td>
+            <td>{{user['mobile']}}</td>
+        </tr>
+        {%endfor%}
+    
+    </table>
+  
+</body>
+</html>
