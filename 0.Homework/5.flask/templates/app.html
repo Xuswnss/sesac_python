@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 각종 테이블  등등... 그냥 약간 더 이쁘게 디자인해보기... */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th,td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid black;
+        }
+        th {
+            background-color: #ddd;
+        }
+        tr:hover {
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
+<body>
+    <h1>flask 템플릿 엔진</h1>
+    <h2>사용자 검색</h2>
+    <!-- 이름과 나이로 검색하시오... 이름 or 나이 or 둘다 -->
+    <form>
+        <input type="text" name="name" placeholder="이름을 입력하시오">
+        <input type="number" name="age" placeholder="나이를 입력하시오">
+        <input type="text" name="phone" placeholder="010-xxxx-xxxx">
+        <input type="submit" value="검색">
+    </form>
+    <h2>사용자 목록</h2>
+    <table>
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>전화번호</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user['name'] }}</td>
+            <td>{{ user['age'] }}</td>
+            <td>{{ user['mobile'] }}</td>        
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
