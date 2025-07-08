@@ -11,5 +11,12 @@
         <input type="file" name="file">
         <button type="submit">submit</button>
     </form>
+    
+        <h2> 업로드 된 파일 목록</h2>
+    <ul>
+        {%for file in files%}
+        <li>{{file}} <a href="/delete/{{file}}" onclick="return confirm('정말 삭제하겟음까?🥲')">[del]</a></li>
+        {%endfor%}
+    </ul>
 </body>
 </html>
