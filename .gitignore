@@ -3,5 +3,6 @@
 
 #민감정보
 .env
+uploads/*
 
 __pycache__/

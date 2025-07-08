@@ -10,6 +10,6 @@ users = [
 def users():
     page = None
     return render_template('user.html' , users= users , page = page)
-
+## u.id ==== u['id']
 if __name__ == '__main__':
     app.run(debug=True, port=5050)

@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users.html</title>
 </head>
-<body>
+<body> <h1>page {{page}}</h1>
     <ul>
-    {%for user in users%}
-    <li>{{user}}</li>
-    {%endfor%}
+   
+        {%for user in users%}
+             <li>{{user}}</li>
+        {%endfor%}
     </ul>
+<!-- jinja 2 template '|' -> 부가 기능 수행 ㄱ ㅏ ㄴㅡㅇ  -->
+    {%for u in users %}
+        <li></li>
 </body>
 </html>
+
+  
