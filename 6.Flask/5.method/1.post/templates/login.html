@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+
+{%block title%}login{%endblock%}
+
+{%block content%} 
+<form action="/login" method="POST">  
+    <label for="id" id="id"> Id </label>
+    <input type="text" name="id" id="id" >
+    <br>
+    <br>
+    <label for="password" id="password"> Password </label>
+    <input type="password" name="password" id="password" >
+    <input type="submit" value="login">
+</form>
+{%endblock%}

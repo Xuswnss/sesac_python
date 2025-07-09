@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 픽사베이</title>
+</head>
+<body>
+    <h1>Search Image</h1>
+    <form action="/search" method="GET" id="searchForm">
+    <!-- <form action="{{url_for('search')}}" method="GET"> -->
+        <input id="query" type="text" name="q" placeholder="ex) cat, dog, pet" required>
+        <button type="submit">search</button>
+
+
+    </form>
+
+    <div id="results"><!--결과 이미지를 채울 공간--></div>
+<!-- start js -->
+    <script>
+document.getElementById('searchForm').addEventListener('submit',(e) => {
+    e.preventDefault();
+    const query = document.getElementById('query').value;
+    fetch(`/search?q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML =""
+            if (data.url.length === 0){
+                resultDiv.innerHTML = '<p>검색 결과 가 업습니다.</p>'
+                return
+            }
+
+            data.url.forEach(i => {
+                console.log(i)
+                resultDiv.innerHTML += `<img src='${i}>`
+            })
+        })
+})  
+  </script>
+</body>
+</html>

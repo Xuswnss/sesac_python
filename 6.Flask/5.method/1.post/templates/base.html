@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%} title {%endblock%}</title>
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/product">product</a>
+    </nav>
+    <br>
+    <hr>
+    <br>
+    {% block content %}기본 본문{% endblock %}
+</body>
+</html>
