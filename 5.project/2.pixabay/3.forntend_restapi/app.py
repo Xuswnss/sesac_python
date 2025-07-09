@@ -1,7 +1,9 @@
-from flask import Flask , jsonify, url_for, render_template, request
-import random
+from flask import Flask , jsonify, url_for, render_template, request, send_from_directory
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # 전체 라우트에 CORS 허용
+
 
 images = [
     {
@@ -24,29 +26,20 @@ images = [
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-@app.route('/api/search' )
+    return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/api/search')
 def search():
-    query = request.args.get('q','').lower()
+    query = request.args.get("q", "").lower()
     results = []
+    
     for item in images:
-    #    found = False
-    #    for keyword in item['keywords']:
-    #        if query in keyword:
-    #            found = True
-    #    if found:
-    #         image_url = url_for('static', filename=f'img/{item['filename']}')
-    #         results.append(image_url)
-            
-        if any(query in keyword for keyword in item['keywords']):
-            image_url = url_for('static', filename=f'img/{item['filename']}')
+        if any(query in keyword for keyword in item["keywords"]):
+            image_url = url_for('static', filename=f'img/{item["filename"]}')
             results.append(image_url)
-    # return jsonify({'url' : results})
-    return render_template('result.html', query = query, results = results)
-            
-        
+    
+    return jsonify({"url": results})  # 순수 BE개발자는 여기까지...
 
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True, port=5050)
+    

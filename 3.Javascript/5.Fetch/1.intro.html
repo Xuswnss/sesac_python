@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Search User</h1>
+    <input type="number" id="userId" placeholder="유저id숫자 입력">
+    <button id="load">Search User</button>
+    <div id="result"></div>
+
+
+    <script>
+        document.getElementById('load').addEventListener('click' , () => {
+            console.log('button clicks')
+            const userId = document.getElementById('userId').value
+        fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+            .then(res =>{
+                if(!res.ok){
+                    throw new Error('error network')
+
+                }
+                return res.json() // 이 리턴 값을 다음에 then이 정한 변수로 받아줌
+            })
+            .then(data => { // 위의 return 결과, 즉 res.json()d의 값이 data라는 변수에 받아짐
+                    console.log(data)
+                 
+                
+
+
+            })
+            .catch(e => {
+                console.error('error!!!! : ' + e)
+            })
+    })
+    </script>
+</body>
+</html>
