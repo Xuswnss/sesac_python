@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{%block title %} main page {%endblock%}
+{%block content%}
+    <h1>'{{query}}'에 대한 검색 결과</h1>
+    <a href="{{url_for('index')}}">뒤로가기</a>
+    <div>
+        {%if results%}
+            {%for image in results%}
+            <img src="{{image.url}}" alt="" width="300" height="300">
+            <p>{{image.filename}}</p>
+            {%endfor%}
+        {%else%}
+            <p>검색결과가 없습니다.</p>
+        {%endif%}
+
+    </div>
+    {%endblock%}

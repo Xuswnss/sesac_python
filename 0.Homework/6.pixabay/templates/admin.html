@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Page{% endblock %}
+
+{% block content %}
+<style>
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    .keyword-form {
+        display: flex;
+        gap: 5px;
+    }
+    .keyword-form input {
+        flex: 1;
+    }
+</style>
+
+<h1>관리자 페이지</h1>
+
+<!-- 파일 업로드 폼 -->
+<form action="/uploads" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" required>
+    <input type="text" name="keywords" placeholder="키워드를 콤마로 구분하여 입력하세요">
+    <button type="submit">업로드</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>미리보기</th>
+            <th>파일명</th>
+            <th>키워드</th>
+            <th>삭제</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for img in images %}
+        <tr>
+            <td>
+                <img src="{{ url_for('static', filename='img/' + img.filename) }}" alt="{{ img.filename }}" width="100">
+            </td>
+            <td>{{ img.filename }}</td>
+            <td>
+                <!-- 키워드 수정 폼 -->
+                <form action="/update_keywords" method="POST" class="keyword-form">
+                    <input type="hidden" name="filename" value="{{ img.filename }}">
+                    <input type="text" name="keywords" value="{{ img.keywords|join(', ') }}">
+                    <button type="submit">수정</button>
+                </form>
+            </td>
+            <td>
+                <!-- 삭제 폼 -->
+                <form action="/delete" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')">
+                    <input type="hidden" name="filename" value="{{ img.filename }}">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
