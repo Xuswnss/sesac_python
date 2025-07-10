@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dog Breeds</title>
+</head>
+<body>
+  <h1>Random Dog Breed Image</h1>
+
+  <div class="form-group">
+    <label for="breedSelect">품종 선택:</label>
+    <select id="breedSelect">
+      <option value="">품종을 선택하세요</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="subBreedSelect">하위 품종 선택:</label>
+    <select id="subBreedSelect" disabled>
+      <option value="">하위 품종을 선택하세요</option>
+    </select>
+  </div>
+
+  <div id="selectedInfo" class="selected-info" style="display: none;">
+    <h3>선택된 품종 정보</h3>
+    <p id="breedInfo"></p>
+  </div>
+
+  <script>
+    const breedSelect = document.getElementById('breedSelect');
+    const subBreedSelect = document.getElementById('subBreedSelect');
+    const breedInfo = document.getElementById('breedInfo');
+    const selectedInfo = document.getElementById('selectedInfo');
+
+    let allBreeds = {}; // 전체 품종 데이터를 저장할 객체
+
+    // 페이지 로드 시 품종 목록 불러오기
+    window.addEventListener('DOMContentLoaded', () => {
+      fetch('https://dog.ceo/api/breeds/list/all')
+        .then(res => res.json())
+        .then(data => {
+          allBreeds = data.message;
+          for (let breed in allBreeds) {
+            const option = document.createElement('option');
+            option.value = breed;
+            option.textContent = breed;
+            breedSelect.appendChild(option);
+          }
+        });
+    });
+
+    // 품종 선택 시 하위 품종 업데이트
+    breedSelect.addEventListener('change', () => {
+      const selectedBreed = breedSelect.value;
+      const subBreeds = allBreeds[selectedBreed];
+
+      // 초기화
+      subBreedSelect.innerHTML = '<option value="">하위 품종이 없습니다</option>';
+      subBreedSelect.disabled = true;
+
+      if (subBreeds.length > 0) {
+        subBreeds.forEach(sub => {
+          const option = document.createElement('option');
+          option.value = sub;
+          option.textContent = sub;
+          subBreedSelect.appendChild(option);
+        });
+        subBreedSelect.disabled = false;
+        subBreedSelect.innerHTML = '<option value="">하위 품종을 골라주세요</option>';
+      }
+
+      showSelectedInfo(selectedBreed, null);
+    });
+
+  
+    subBreedSelect.addEventListener('change', () => {
+      const breed = breedSelect.value;
+      const sub = subBreedSelect.value;
+      showSelectedInfo(breed, sub);
+    });
+
+
+    function showSelectedInfo(breed, subBreed) {
+      selectedInfo.style.display = 'block';
+      if (subBreed) {
+        breedInfo.textContent = `선택한 품종: ${breed} / 하위 품종: ${subBreed}`;
+      } else {
+        breedInfo.textContent = `선택한 품종: ${breed}`;
+      }
+    }
+  </script>
+</body>
+</html>
