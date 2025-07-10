@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Random Dog Breed Image</h1>
+    <form action="">
+        <label for="breed">Choose a breed! </label>
+        <select name="breed" id="breed">
+            
+        </select>
+    </form>
+
+    <script>
+      
+      
+       window.addEventListener('DOMContentLoaded',()=>{
+       
+            fetch('https://dog.ceo/api/breeds/list/all')
+                .then(res => {
+                    console.log(200)
+                    return res.json()
+                })
+                .then(data => {
+                    console.log('breeds :',data.message)
+                    const breedList = document.getElementById('breed')
+                    const option = document.createElement('option')
+                    breeds = data.message
+                    console.log(typeof(breeds))
+                    Array(breeds).forEach(e => {
+                        for(i = 0 ; i < e.length; i++){
+                        console.log('e :', e)
+                        option.value = 'e'
+                        option.text = JSON.stringify(e)
+                        breedList.appendChild(option)
+                        }
+                    });
+                    
+            
+                    
+                    return data.message
+                })
+        })
+       
+
+    </script>
+
+</body>
+</html>

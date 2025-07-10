@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO-LIST</title>
+
+    <link rel="stylesheet" href="./todoList.css" />
+  </head>
+  <body>
+    <h1>TODO-LIST</h1>
+
+    <div id="container">
+      <input type="text" id="userInput" placeholder="할 일 추가하기" />
+      <button id="addTodo">+</button>
+      <ul id="todoList"></ul>
+    </div>
+
+    <script>
+      const addTodo = document.getElementById("addTodo");
+      const todoList = document.getElementById("todoList");
+      addTodo.addEventListener("click", addItem);
+
+      function addItem() {
+        const inputContainer = document.getElementById("userInput");
+        let userInput = inputContainer.value.replace(/\s/g, "");
+        if (userInput == "") return;
+        const item = document.createElement("li");
+
+        const itemText = document.createElement("span");
+        itemText.innerText = userInput;
+        itemText.classList.add("innerText");
+        itemText.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleItemInnerText(itemText);
+        });
+        item.appendChild(itemText);
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "x";
+        deleteButton.classList.add("deleteButton");
+        deleteButton.addEventListener("click", () => deleteItem(item));
+        item.appendChild(deleteButton);
+        todoList.appendChild(item);
+        inputContainer.value = "";
+      } //end addItem()
+
+      function deleteItem(item) {
+        console.log("삭제된 일정 : " + item.innerText);
+        if (!confirm("삭제하시겠습니까?")) {
+          return;
+        }
+        item.remove();
+      } //end deleteItem()
+
+      function toggleItemInnerText(item) {
+        console.log(item.innerText);
+        item.classList.toggle("completed");
+        console.log("일정 완료 : " + item.innerText);
+      } // end toggleItem()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+{%block title %} main page {%endblock%}
+{%block content%}
+    <h1>이미지 검색</h1>
+    <form id="searchForm">
+        <input type="text" name="q" placeholder="예) cat, dog, pet" id="input" required>
+        <button type="submit">검색</button>
+    </form>
+ 
+    <div id="result"></div>
+
+   
+
+    <script>
+ 
+        const searchForm = document.getElementById('searchForm')
+        const inputField = document.getElementById('input')
+        const resultDiv = document.getElementById('result')
+        searchForm.addEventListener('submit', (e)=> {
+            e.preventDefault()
+            const query = inputField.value.trim()
+            if(query){
+                searchImage(query)
+            }
+        })
+        //이미지 검색
+        function searchImage(query){
+            fetch(`http://127.0.0.1:5051/search?q=${query}`)
+
+                .then(response => {
+                    console.log('response :', response)
+                    // console.log( response.json()) response.json은 두번 호출하면 안됌..
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data)
+                   displayResults(data)
+                })
+        }// end searchImage(query)
+
+        function displayResults(data) {
+
+
+        if (data.length === 0) {
+        console.log("검색 결과 없음");
+        resultDiv.innerHTML = '<p>검색 결과 없음</p>';
+        return;
+      }
+
+  
+    resultDiv.innerHTML = '';
+    data.forEach(item => {
+        const img = document.createElement('img');
+        const p = document.createElement('p')
+        img.src = item.url;
+        img.alt = item.filename;
+        p.innerText = item.filename
+        resultDiv.appendChild(img);
+        resultDiv.appendChild(p)
+    });
+}
+
+    </script>
+    {%endblock%}

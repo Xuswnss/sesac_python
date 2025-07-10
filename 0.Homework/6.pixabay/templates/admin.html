@@ -1,70 +1,39 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>이미지 업로드</h1>
+    <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="text" name="keywords" size=30 placeholder="예) cat, dog, pet, ... (콤마로 구분하시오)">
+        <input type="submit" value="업로드">
+    </form>
 
-{% block title %}Admin Page{% endblock %}
-
-{% block content %}
-<style>
-    table {
-        border: 1px solid black;
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid black;
-        padding: 8px;
-    }
-    .keyword-form {
-        display: flex;
-        gap: 5px;
-    }
-    .keyword-form input {
-        flex: 1;
-    }
-</style>
-
-<h1>관리자 페이지</h1>
-
-<!-- 파일 업로드 폼 -->
-<form action="/uploads" method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" required>
-    <input type="text" name="keywords" placeholder="키워드를 콤마로 구분하여 입력하세요">
-    <button type="submit">업로드</button>
-</form>
-
-<table>
-    <thead>
+    <h2>이미지 목록</h2>
+    <table border="1">
         <tr>
             <th>미리보기</th>
             <th>파일명</th>
             <th>키워드</th>
             <th>삭제</th>
         </tr>
-    </thead>
-    <tbody>
-        {% for img in images %}
+        {% for i in images %}
         <tr>
+            <td><img src="{{ url_for('static', filename='img/' + i.filename) }}" width="200"></td>
+            <td>{{ i.filename }}</td>
             <td>
-                <img src="{{ url_for('static', filename='img/' + img.filename) }}" alt="{{ img.filename }}" width="100">
-            </td>
-            <td>{{ img.filename }}</td>
-            <td>
-                <!-- 키워드 수정 폼 -->
-                <form action="/update_keywords" method="POST" class="keyword-form">
-                    <input type="hidden" name="filename" value="{{ img.filename }}">
-                    <input type="text" name="keywords" value="{{ img.keywords|join(', ') }}">
+                <form action="{{ url_for('update_keywords', filename=i.filename )}}" method="POST">
+                    <input type="text" name="keywords" value="{{ i.keywords | join(', ') }}">
                     <button type="submit">수정</button>
                 </form>
             </td>
-            <td>
-                <!-- 삭제 폼 -->
-                <form action="/delete" method="POST" onsubmit="return confirm('정말 삭제하시겠습니까?')">
-                    <input type="hidden" name="filename" value="{{ img.filename }}">
-                    <button type="submit">삭제</button>
-                </form>
-            </td>
+            <td><a href="{{ url_for('delete_image', filename=i.filename) }}" onclick="return confirm('정말 삭제하시겠습니다?')">삭제</a></td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
-
-{% endblock %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error{
+            color:  red;
+        }
+        .success{
+            color: green
+        }
+    </style>
+</head>
+<body>
+    <button id="load">로드</button>
+    <div id="result"></div>
+    <script>
+         const resultDiv = document.getElementById('result')
+        const loadBtn = document.getElementById('load').addEventListener('click' , ()=>{
+            console.log('버튼클릭')
+            fetch('http://127.0.0.1:5050/data')
+                .then((res) => {
+                    console.log('res : ', res.status, res.ok , '응답받았음!!!!')
+                    return res.json()
+                })
+                .then(data => {
+                    resultDiv.classList.add('success')
+                    resultDiv.innerHTML = data.result
+                })
+                .catch(e => {
+                    console.log('error 발생 : ' , e)
+                    resultDiv.classList.add('error')
+                    resultDiv.innerHTML = '오류 발생' + e
+                })
+        })
+    </script>
+</body>
+</html>

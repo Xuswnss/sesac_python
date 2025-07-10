@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 IMG_FOLDER = os.path.join(app.root_path,'static', 'img')  # 'join' -> 'img'로 수정
 UPLOAD_FOLDER = 'uploads'
@@ -26,9 +28,12 @@ images = [
         'keywords': ['dog', 'pet', 'cute'],
     },
 ]
-
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/search')
+def search():
     query = request.args.get("q", "").lower()
     results = []
     
@@ -36,27 +41,39 @@ def index():
         # pythonic하게 한줄로...
         if any(query in keyword for keyword in item["keywords"]):
             image_url = url_for('static', filename=f'img/{item["filename"]}')
-            results.append(image_url)
-    
-    return render_template("index.html", query=query, results=results)
+            results.append({
+                'filename' : item['filename'],
+                'url': image_url,
+                'keywords': item['keywords']
+            })
+            print('######### result : ', results)
+            
+    return jsonify(results)
 
 @app.route('/admin')
 def admin():
-    return render_template("admin.html", images=images)
+    return render_template('admin.html', images=images)
 
+@app.route('/images')
+def get_images():
+    return jsonify(images)
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 @app.route('/upload', methods=['POST'])
 def upload():
-    file = request.files.get('image')
+    file = request.files.get('inputFile')
     keywords = request.form.get('keywords')
     print(keywords)
     
     if file:
         filename = file.filename
-        filepath = os.path.join('static', 'img', filename)
+        filepath = os.path.join(ROOT_PATH,'static', 'img', filename)
+        print('filepate : ', filepath)
         file.save(filepath)
         images.append({'filename': filename, "keywords": keywords.lower().split(',')})
     
-    return redirect(url_for('admin'))
+    return jsonify(images)
+
+
 
 @app.route('/update/<filename>', methods=['POST'])
 def update_keywords(filename):
@@ -66,7 +83,8 @@ def update_keywords(filename):
             i["keywords"] = [word.strip() for word in new_keywords.lower().split(',') if len(word.strip())]
             break
         
-    return redirect(url_for('admin'))
+    return jsonify(images)
+
 
 @app.route('/delete/<filename>')
 def delete_image(filename):
@@ -86,7 +104,8 @@ def delete_image(filename):
         # os.remove(filepath)
         print(f'{filepath} 지웠다고 치자...')
     
-    return redirect(url_for('admin'))
+    return jsonify(images)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5051)

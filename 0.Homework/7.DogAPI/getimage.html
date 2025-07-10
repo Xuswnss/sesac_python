@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getImage</title>
+</head>
+<body>
+    <button id="getBtn">이미지 가져오기</button>
+    <div id="result"></div>
+ <script>
+    const getBtn = document.getElementById('getBtn')
+    const resultDiv = document.getElementById('result')
+    getBtn.addEventListener('click', ()=>{
+        fetch('https://dog.ceo/api/breeds/image/random')
+            .then(res => {
+                console.log('res', res)
+                if(res.status == 200){
+                    console.log('status 200')
+                    return res.json()
+                }
+            })
+            .then(data => {
+                resultDiv.innerHTML = `<img src="${data.message}"></img>`
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    })
+ </script>
+</body>
+</html>

@@ -1,11 +1,26 @@
-{%extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이 픽사베이</title>
+</head>
+<body>
+    <h1>이미지 검색</h1>
+    <form action="{{ url_for('index') }}">
+        <input type="text" name="q" placeholder="예) cat, dog, pet" required>
+        <button type="submit">검색</button>
+    </form>
 
-{%block title %} main page {%endblock%}
-{%block content%}
- <h1>이미지 검색</h1>
- <form action="{{url_for('search')}}" method="GET">
-    <input type="text" name="q" placeholder="ex) cat, dog, pet" required>
-    <button type="submit">search</button>
-
-</form>
-{%endblock%}
+    <h2>"{{ query }}" 에 대한 검색결과</h2>
+    <div>
+        {% if results %}
+            {% for image in results %}
+                <img src="{{ image }}">
+            {% endfor %}
+        {% else %}
+            <p>검색 결과가 없습니다.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
