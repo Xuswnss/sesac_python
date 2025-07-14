@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table, th, td{
+            border: 1px solid gray;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>User List</h2>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>modify/delete</th>
+        </thead>
+        <tbody>
+            {%for u in users %}
+            <tr>
+                <!-- u.XX <- 딕서녀리 {} 만 가능함-->
+                <td>{{u.id}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.age}}</td>
+                <td><a href="/update/{{u.id}}" >modify</a>/
+                <a href="/delete/{{u.id}}">delete</a></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <br>
+ <hr>
+ <br>
+    <form action="" method="POST"> <!--지정되지 않으면 루트로 이동된다.-->
+        이름 : <input type="text" name="name" required>
+        나이 : <input type="number" name="age" required>
+        <button type="submit">add</button>
+    </form>
+
+</body>
+</html>

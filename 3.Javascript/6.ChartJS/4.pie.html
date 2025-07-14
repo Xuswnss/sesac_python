@@ -1,0 +1,41 @@
+<div>
+    <canvas id="myChart"></canvas> <!--#1 . 빈 캔ㄴ버스 만들기-->
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--js 가져오기; CDN-->
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+
+    const data = {
+  labels: [
+    '집에 가고싶다',
+    '잠자는 시간',
+    '숙제가 너무 많다.'
+  ],
+  datasets: [{
+    label: '내 머리 속',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+
+const config = {
+  type: 'pie',
+  data: data,
+ 
+};
+
+
+
+new Chart(ctx, config) // ctx에 
+
+    
+  </script>
+  

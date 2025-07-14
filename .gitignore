@@ -6,3 +6,8 @@
 uploads/*
 
 __pycache__/
+
+**/uploads/*
+*.db
+*.sqlite
+*.sqlite3
