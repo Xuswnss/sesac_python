@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상점</title>
+</head>
+<body>
+    <h1> 상점 리스트 </h1>
+    <!-- 미션 3 검색을 위한 폼 추가. -->
+<form action="/" method="POST">
+    <input type="text" name="name" value="{{search}}" placeholder="가게명을 입력해주세요">
+    <button type="submit">search</button>
+</form>
+<br>
+<hr>
+  <table border="1">
+    <tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>타입</th>
+        <th>주소</th>
+    </tr>
+    {% for store in stores %}
+    <tr>
+        <th>{{store.Id}}</th>
+        <th>{{store.Name}}</th>
+        <th>{{store.Type}}</th>
+        <th>{{store.Address}}</th>
+     
+    </tr>
+    {%endfor%}
+  </table>
+</body>
+</html>

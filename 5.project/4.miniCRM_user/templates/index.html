@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+    <!-- "Id" TEXT, "Name" TEXT, "Gender" TEXT, "Age" TEXT, -->
+</head>
+<body>
+    <h1> user </h1>
+    <input type="text" name="name">
+    <select name="gender" id="">
+        <option value="male" >
+            Male
+        </option>
+        <option value="">
+            Female
+        </option>
+    </select>
+    <input type="number" placeholder="나이를 입력해주세요">
+<hr>
+  <table border="1">
+    <tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>성별</th>
+        <th>나이</th>
+        <th>생일</th>
+    
+    </tr>
+    {% for u in users %}
+    <tr>
+        <td>{{u.Id}}</td>
+        <td>{{u.Name}}</td>
+        <td>{{u.Gender}}</td>
+        <td>{{u.Age}}</td>
+        <td>{{u.Birthdate}}</td>
+     
+     
+    </tr>
+    {%endfor%}
+  </table>
+  <!-- 페이지를 이동할 수 있는 번호 그리기 -->
+   <div>
+    {%for i in range(0, last_page)%}
+    <a href="/?page={{i+1}}">{{i+1}}</a>
+    {%endfor%}
+   </div>
+</body>
+</html>

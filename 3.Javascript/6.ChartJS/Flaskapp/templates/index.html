@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--js 가져오기; CDN-->
+</head>
+<body>
+    <canvas id="chart"></canvas>
+    <script>
+
+        function fetchData(){
+            fetch('/api/data')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    drawChart(data)
+                })
+                
+        }
+        function drawChart(revenue){
+            const ctx = document.getElementById('chart');
+  
+            const labels = revenue.labels;
+            const data = {
+                labels: labels,
+                datasets: [{
+                label: 'My First Dataset',
+                data: revenue.values,
+                }]
+            };
+            
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                },
+            };
+  
+  
+         new Chart(ctx, config) // ctx에 config를 너흠!
+  
+      
+
+        }
+
+        document.addEventListener('DOMContentLoaded',()=> {
+            fetchData()
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{users.name}}님의 정보 수정</h1>
+    <hr>
+    <form action="/modify/{{users.id}}" method="POST">
+        <input type="text" placeholder="" value="{{users.name}}" name="name">
+        <input type="number" value="{{users.age}}" name="age">
+        <button type="submit">수정</button>
+</body>
+</html>
