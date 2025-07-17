@@ -47,8 +47,8 @@ class DisplayData(ItemGenerator):
         
         
 
-# if __name__ == '__main__':
-#    generator = DisplayData()
-# #    print(generator.print_data(10))
-# generator.save_to_csv(100,'./csv/item_data.csv')
+if __name__ == '__main__':
+   generator = DisplayData()
+#    print(generator.print_data(10))
+generator.save_to_csv(20,'./csv/item_data.csv')
 

@@ -6,9 +6,9 @@ sys.path.append('/Users/hyeonjiyun/Desktop/src/sesac/SESAC_PY3/sesac_python/0.Ho
 from generators.address_generator import AddressGenerator
 from generators.date_generator import DateGenerator
 from generators.id_generator import IdGenerator
-from .gender_generator import GenderGenerator
-from .name_generator import NameGenerator
-from .age_generator import AgeGenerator
+from gender_generator import GenderGenerator
+from name_generator import NameGenerator
+from age_generator import AgeGenerator
 
 
 class UserGenerator:
@@ -54,7 +54,7 @@ class DisplayData(UserGenerator):
 def main():
     my_data = DisplayData()
     # my_data.print_data(100)
-    my_data.save_to_csv(100, './csv/user_data.csv')
+    my_data.save_to_csv(1000, './csv/user_data.csv')
 
 if __name__ == "__main__":
     main()

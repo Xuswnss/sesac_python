@@ -42,4 +42,4 @@ class DisplayData(OrderItemGenerator):
 if __name__ == "__main__":
     generator = DisplayData()
     # print(generator.print_data(10))
-    print(generator.save_to_csv(100, './csv/orderItem_data.csv'))
+    print(generator.save_to_csv(30000, './csv/orderItem_data.csv'))

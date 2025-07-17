@@ -35,7 +35,7 @@ class DisplayData(OrderGenerator):
             print(f'Id:{id}\norderAt:{orderAt}\nstoreId:{storeId}\nuserId:{userId}\n')
             
     def save_to_csv(self,count,file_name):
-        data = self.generator_order(count)
+        data = self.generator(count)
         header = [ 'Id', 'OrderAt', 'StoreId', 'UserId']
         with open(file_name, mode='w', newline='',encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -48,4 +48,4 @@ class DisplayData(OrderGenerator):
 if __name__ == '__main__':
     generator = DisplayData()
     # print(generator.print_data(10))
-    print(generator.save_to_csv(100,'./csv/order_data.csv'))
+    print(generator.save_to_csv(10000,'./csv/order_data.csv'))
