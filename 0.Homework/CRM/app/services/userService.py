@@ -1,4 +1,5 @@
 from app.models.users import User
+from sqlalchemy import func
 
 # 유저 생성
 def create_user(session, name, age) -> User:
@@ -16,18 +17,26 @@ def get_users(session) -> list[User]:
 
 # 회원 이름 조회
 # 1. 이름과 나이값 받은 후 조회하는 코드 if문으로 쓰기
-def search_user(session, name=None, age = None, gender = None ) -> User:
-     filters = []
-     if name:
-        filters.append(User.name.like(f"%{name}%"))
-     if age:
-        filters.append(User.age == int(age))
-     if gender:
-        filters.append(User.gender == gender)
+from sqlalchemy import func
 
-        user =  session.query(User).filter(*filters).all()
-        session.commit()
-        return user
+def search_user(session, name=None, gender=None) -> User:
+    filters = []
+    
+    if name:
+ 
+        filters.append(func.lower(User.name).like(f"%{name.lower()}%"))
+
+    if gender:
+      
+        filters.append(func.lower(User.gender) == gender.lower())
+
+    if not filters:  
+        return None
+
+    # 사용자 검색
+    user = session.query(User).filter(*filters).all()
+    return user 
+
     
     
 # update user

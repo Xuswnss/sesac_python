@@ -17,9 +17,9 @@ def user_list_api():
     print('#### userAPI 호출')
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page', 10))
-    print(f'### input page: {page}, per_page : {per_page}')
+    # print(f'### input page: {page}, per_page : {per_page}')
     pagination = userService.user_paginated(db.session, page, per_page)
-    print(pagination.items)
+    # print(pagination.items)
     users = pagination.items
     # users를 순회한 객체 u를 to_dict()메서드 처리해서 리스트[]로 반환
     result = {
@@ -32,5 +32,22 @@ def user_list_api():
     # print( result in range(1,10))
     return jsonify(result)
 
+
+@user_bp.route('/api/search' , methods= ['GET'])
+def user_search():
+    print('### userSearch() 호출')
+    #get은  args.get으로 가져오고
+    # post는 form.get
+    name = request.args.get('name',None) 
+    gender = request.args.get('gender', None)
+
+    if not name or not gender:
+        return jsonify({
+            'error' : '이름과 성별을 입력해세요',
+            'status' : 400
+        })
+    name = name.lower()
+    result = userService.search_user(db.session,name,gender)
+    return  jsonify([u.to_dict() for u in result])
 
 
