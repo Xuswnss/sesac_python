@@ -19,7 +19,7 @@ def store_list_api():
     stores = pagination.items
     
     result = {
-        'stores' : [s.to_dic() for s in stores],
+        'stores' : [s.to_dict() for s in stores],
         'total' : pagination.total,
         'page' : pagination.page,
         'per_page' : pagination.per_page,

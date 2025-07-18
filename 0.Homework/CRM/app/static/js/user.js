@@ -20,12 +20,13 @@
             .then(data => {
                 const result = document.getElementById('result');
                 result.innerHTML = ''; // 기존 내용 초기화
+                console.log('data : ', data)
 
                 if (data.users && data.users.length > 0) {
                     data.users.forEach(user => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${user.id || ''}</td>
+                            <td><a href="/users/user-detail/${user.id}">${user.id || ''}</a></td>
                             <td>${user.name || ''}</td>
                             <td>${user.age || ''}</td>
                             <td>${user.gender || ''}</td>

@@ -8,6 +8,15 @@ class Item(db.Model):
     type = db.Column(String)
     unit_price = db.Column(String)
     
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'type' : self.type,
+            'unit_price' : self.unit_price
+        }
+        
+    
 # create table if not exists items(
 #     id text primary key,
 #     name text,

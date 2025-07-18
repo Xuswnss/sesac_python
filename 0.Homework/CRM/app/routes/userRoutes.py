@@ -49,4 +49,23 @@ def user_search():
     result = userService.search_user(db.session,name,gender)
     return  jsonify([u.to_dict() for u in result])
 
+@user_bp.route('/user-detail/<string:user_id>', methods = ['GET'])
+def get_user_detail(user_id):
+    print('##### input User Id : ', user_id)
+    return render_template('user-detail.html', user_id = user_id)
+
+
+@user_bp.route('/user-detail/api/get-user/<string:user_id>')
+def api_get_user(user_id):
+    user = userService.get_user_by_id(db.session,user_id)
+    print('#### get_user_by_id : ', user)
+    return jsonify(user.to_dict())
+
+
+@user_bp.route('/user-detail/api/order-list/<string:user_id>')
+def api_get_user_orders(user_id):
+    user = userService.get_orderList_by_userId(db.session,user_id)
+    print(user)
+    return jsonify([u.to_dict() for u in user])
+
 

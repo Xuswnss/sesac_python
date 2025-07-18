@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} User {% endblock %}
+{% block content %}
+<h1>고객정보 목록</h1>
+<div id="user-info" data-user-id="{{ user_id }}"></div>
+
+<table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        
+        <tr style="background-color: #f2f2f2;">
+            <th>아이디</th>
+            <th>이름</th>
+            <th>나이</th>
+            <th>성별</th>
+            <th>생일</th>
+            <th>주소</th>
+        </tr>
+    </thead>
+    <tbody id="user-result"></tbody>
+</table>
+
+<table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        
+        <tr style="background-color: #f2f2f2;">
+            <th>order_id</th>
+            <th>purchased_date</th>
+            <th>purchased location</th>
+        </tr>
+    </thead>
+    <tbody id="order_result"></tbody>
+</table>
+
+<script src="/static/js/user-detail.js"></script>
+{%endblock%}

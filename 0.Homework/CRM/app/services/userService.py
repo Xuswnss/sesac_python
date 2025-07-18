@@ -1,4 +1,5 @@
 from app.models.users import User
+from app.models.orders import Order
 from sqlalchemy import func
 
 # 유저 생성
@@ -70,6 +71,18 @@ def user_paginated(session, page=1, per_page=10):
     pagination = session.query(User).paginate(page=page, per_page=per_page, error_out=False)
     return pagination  
 
+# user-detail
+def get_user_by_id(session,user_id):
+    user = session.get(User, user_id)
+    print('#### user : ', user)
+    session.commit()
+    return user
 
+def get_orderList_by_userId(session, user_id):
+    orders = session.query(Order).filter(Order.user_id == user_id).all()
+    print('### orders : ', orders)
+    session.commit()
+    return orders
+    
 
 

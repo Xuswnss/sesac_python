@@ -8,7 +8,7 @@ class Store(db.Model):
     type = db.Column(String)
     address = db.Column(String)
     
-    def to_dic(self):
+    def to_dict(self):
         return{
             'id' : self.id,
             'name' : self.name,
