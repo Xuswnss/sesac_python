@@ -8,3 +8,11 @@ class Store(db.Model):
     type = db.Column(String)
     address = db.Column(String)
     
+    def to_dic(self):
+        return{
+            'id' : self.id,
+            'name' : self.name,
+            'type': self.type,
+            'address' : self.address
+        }
+    

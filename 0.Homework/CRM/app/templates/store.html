@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} User {% endblock %}
+{% block content %}
+<h1>사용자 목록</h1>
+<!-- user search -->
+<form action="", id="user-select-form">
+<input type="text" id="name-input" name="name">
+<select name="gender" id="gender-select-box">
+    <option value="Female">female</option>
+    <option value="Male">male</option>
+</select>
+<button type="submit">제출
+
+
+</button>
+<p id="error"></p>
+</form>
+<!-- user table -->
+<table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th>아이디</th>
+            <th>브랜드</th>
+            <th>지점명</th>
+            <th>주소</th>
+        </tr>
+    </thead>
+    <tbody id="result"></tbody>
+</table>
+<div id="pagination-controls" > 
+    <div id="page-numbers" ></div>
+</div>
+
+<script src="../static/js/store.js"></script>
+{%endblock%}

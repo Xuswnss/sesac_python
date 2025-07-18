@@ -1,6 +1,5 @@
 from flask import Flask, render_template, Blueprint, jsonify, request
 import app.services.userService as userService
-from app.models.users import User
 from app import db
 
 # command + j  -> 터미널

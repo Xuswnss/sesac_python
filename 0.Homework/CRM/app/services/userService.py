@@ -23,13 +23,9 @@ def search_user(session, name=None, gender=None) -> User:
     filters = []
     
     if name:
- 
         filters.append(func.lower(User.name).like(f"%{name.lower()}%"))
-
-    if gender:
-      
+    if gender: 
         filters.append(func.lower(User.gender) == gender.lower())
-
     if not filters:  
         return None
 
