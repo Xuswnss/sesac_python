@@ -22,4 +22,10 @@ def create_app():
     from app.routes.orderItemRoutes import orderItem_bp
     app.register_blueprint(orderItem_bp)
     
+    from app.routes.itemRoutes import item_bp
+    app.register_blueprint(item_bp)
+    
+    from app.routes.orderRoutes import order_bp
+    app.register_blueprint(order_bp)
+    
     return app

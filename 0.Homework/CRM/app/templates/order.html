@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} User {% endblock %}
+{% block content %}
+<h1>order 목록</h1>
+</button>
+<p id="error"></p>
+</form>
+
+<table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th>id</th>
+            <th>order_at</th>
+            <th>store_id</th>
+            <th>user_id</th>
+        </tr>
+    </thead>
+    <tbody id="result"> </tbody>
+</table>
+<div id="pagination-controls" > 
+    <div id="page-numbers" ></div>
+</div>
+
+<script src="../static/js/item.js"></script>
+{%endblock%}
