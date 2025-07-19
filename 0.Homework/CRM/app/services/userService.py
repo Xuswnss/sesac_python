@@ -2,12 +2,6 @@ from app.models.users import User
 from app.models.orders import Order
 from sqlalchemy import func
 
-# 유저 생성
-def create_user(session, name, age) -> User:
-    new_user = User(name = name, age = age)
-    session.add(new_user)
-    session.commit()
-    return User
 
 # 전체 회원 조회
 def get_users(session) -> list[User]:
@@ -34,37 +28,6 @@ def search_user(session, name=None, gender=None) -> User:
     user = session.query(User).filter(*filters).all()
     return user 
 
-    
-    
-# update user
-def update_user(session, name, age = None, gender = None) -> User:
-    # 이름으로 유저 조회 (주의: 이름이 고유하지 않다면 문제가 생김)
-    user = session.query(User).filter_by(name=name).first()
-
-    if not user:
-        print(f'{user}을 찾을 수 없습니다.')
-    
-    if name:
-        user.name = name
-
-    if age is not None:
-        user.age = age
-    if gender is not None:
-        user.gender = gender
-
-    session.commit()
-    session.refresh(user)  
-    return user
-
-
-#delete user
-def delete_user(session, user_id: int) -> bool:
-    user = session.get(User, user_id)
-    if user:
-        session.delete(user)   
-        session.commit()
-        return True
-    return False
 
 # user paginated
 def user_paginated(session, page=1, per_page=10):
