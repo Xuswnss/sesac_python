@@ -16,10 +16,10 @@ function fetchOrders(page){
                 data.orders.forEach( order => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
-                            <td>${order.id || ''}</td>
+                            <td><a href="/orderitems/orderItem-detail/${order.id}">${order.id || ''}</a></td>
                             <td>${order.order_at || ''}</td>
-                            <td>${order.store_id || ''}</td>
-                            <td>${order.user_id || ''}</td>
+                            <td>${order.store_id || ''}</td>  
+                            <td>${order.user_id || ''}</td>  
                 `
                 resultDiv.appendChild(row)
                 })

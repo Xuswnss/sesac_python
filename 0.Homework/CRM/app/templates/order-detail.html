@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% block title %} User {% endblock %}
 {% block content %}
-<h1>orderItem-detail</h1>
+<h1>order-detail</h1>
 <div id="order-info" data-order-id="{{ order_id }}"></div>
 </button>
 <p id="error"></p>
 </form>
-<!-- user table -->
+
 <table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
     <thead>
         <tr style="background-color: #f2f2f2;">
             <th>id</th>
-            <th>order_id</th>
-            <th>item_id</th>
-            <th>item_name</th>
+            <th>type</th>
+            <th>name</th>
+            <th>unit_price</th>
         </tr>
     </thead>
     <tbody id="result"> </tbody>
@@ -22,5 +22,5 @@
     <div id="page-numbers" ></div>
 </div>
 
-<script src="/static/js/orderItem-detail.js"></script>
+<script src="/static/js/order-detail.js"></script>
 {%endblock%}

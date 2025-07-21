@@ -9,12 +9,14 @@ order_bp = Blueprint('orders', __name__ , url_prefix= '/orders')
 def render_order():
     return render_template('order.html')
 
+
+
 @order_bp.route('/api/get-order')
 def api_get_orders():
     print('#### order_list_api() 호출')
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page',10))
-    pagination = orderService.get_items(db.session,page, per_page)
+    pagination = orderService.get_orders(db.session,page, per_page)
     orders = pagination.items
     
     result = {
@@ -26,4 +28,5 @@ def api_get_orders():
     }
     
     return jsonify(result)
-    
+
+

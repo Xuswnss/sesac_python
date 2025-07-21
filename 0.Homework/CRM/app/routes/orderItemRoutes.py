@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Blueprint, jsonify, request
 from app import db
 import app.services.orderItemService as orderItemService
+import app.services.orderService as orderService
 
 
 orderItem_bp = Blueprint('orderitems', __name__ , url_prefix= '/orderitems')
@@ -27,5 +28,18 @@ def api_get_orderitems():
     }
     
     return jsonify(result)
+
+@orderItem_bp.route('/orderItem-detail/<string:order_id>')
+def render_order_detail(order_id):
+    print('### input OrderId : ', order_id)
+    return render_template('orderItem-detail.html', order_id = order_id)
+
+@orderItem_bp.route('/api/get-order-item/<string:order_id>')
+def get_order_detail(order_id):
+    
+    result = orderItemService.get_orderItems_detail_by_orderId(db.session, order_id)
+    print(result)
+    result = jsonify([r.to_dict() for r in result])
+    return result
     
     

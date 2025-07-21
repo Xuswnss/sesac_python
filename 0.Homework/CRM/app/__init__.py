@@ -28,4 +28,5 @@ def create_app():
     from app.routes.orderRoutes import order_bp
     app.register_blueprint(order_bp)
     
+    
     return app
