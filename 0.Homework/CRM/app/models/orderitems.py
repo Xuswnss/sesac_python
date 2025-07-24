@@ -13,6 +13,7 @@ class OrderItems(db.Model):
             'order_id' : self.order_id,
             'item_id' : self.item_id
         }
+        
 
 # create table if not exists orderitems(
 #     id text primary key,

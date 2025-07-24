@@ -30,3 +30,16 @@ def api_get_orders():
     return jsonify(result)
 
 
+@order_bp.route('/order-detail/<string:order_id>')
+def render_order_detail(order_id):
+    return render_template('order-detail.html', order_id = order_id)
+
+@order_bp.route('/api/get-order-detail/<string:order_id>')
+def api_get_order_detail(order_id):
+    result = orderService.get_order_by_orderId(db.session, order_id)
+    result = [r.to_dict() for r in result]
+    print('##### result : ', result)
+    return jsonify(result)
+    
+
+

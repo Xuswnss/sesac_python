@@ -9,6 +9,7 @@ function fetchOrderItemsDetail(order_id){
     fetch(`/orderitems/api/get-order-item/${order_id}`)
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             const result = document.getElementById('result')
             result.innerHTML = ''
             if(data){
@@ -16,8 +17,9 @@ function fetchOrderItemsDetail(order_id){
                     const row = document.createElement('tr')
                     row.innerHTML = `
                      <td>${item.id || ''}</td>
+                            <td><a href = '/orders/order-detail/${item.order_id || ''}'>${item.order_id || ''}</a></td>
                             <td>${item.item_id || ''}</td>
-                            <td>${item.order_id || ''}</td>
+                            <td>${item.item_name || ''}</td>
                             
                     `
                     result.append(row)

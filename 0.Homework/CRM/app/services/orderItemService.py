@@ -10,11 +10,10 @@ def get_orderItems(session,page =1, per_page=10):
     return pagination
 
 def get_orderItems_detail_by_orderId(session, order_id):
-    result = session.query(OrderItems,Item.name).join(Item, OrderItems.item_id == Item.id).filter(OrderItems.order_id == order_id).all()
-    print('#### get_orderItems_detail_by_orderId :', result)
-
+    rows = session.query(OrderItems,Item.name).join(Item, OrderItems.item_id == Item.id).filter(OrderItems.order_id == order_id).all()
+   
     session.commit()
-    return result
+    return rows
 
     
 
