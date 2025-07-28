@@ -22,45 +22,50 @@ def get_store_by_id(session, store_id):
     session.commit()
     return result
  
-def get_store_month_sales(session, store_id):
-    results = (
-        session.query(Order.order_at, Item.unit_price)
-        .join(OrderItems, Order.id == OrderItems.order_id)
-        .join(Item, OrderItems.item_id == Item.id)
-        .filter(Order.store_id == store_id)
-        .all()
-    )
-    print('################ result : ',results)
+def get_store_month_sales(session, store_id, month=None):     
+    results = (         
+        session.query(Order.order_at, Item.unit_price)         
+        .join(OrderItems, Order.id == OrderItems.order_id)         
+        .join(Item, OrderItems.item_id == Item.id)         
+        .filter(Order.store_id == store_id)         
+        .all()     
+    )      
 
-    monthly_data = {}
+    sales_data = {}      
 
-    for order_date_str, unit_price in results:
-        # 날짜 문자열에서 연-월만 추출
-        try:
-            year_month = order_date_str[:7]  # 'YYYY-MM'
-        except Exception:
-            continue  # 예외 발생 시 건너뜀
-        
-          # 숫자로 변환 시도
-        try:
-            price = float(unit_price)
-        except (ValueError, TypeError):
-        # 숫자가 아니면 무시
-            continue
-        #db.header를 지우지 않아서 unitprice;라고 적혀있는 칼럼존재
-        if year_month not in monthly_data:
-            monthly_data[year_month] = {'count': 0, 'total_revenue': 0}
+    for order_date, unit_price in results:         
+        try:             
+            if hasattr(order_date, 'strftime'):                 
+                date_key = order_date.strftime('%Y-%m-%d') if month else order_date.strftime('%Y-%m')             
+            else:                 
+                date_key = str(order_date)[:10] if month else str(order_date)[:7]         
+        except Exception:             
+            continue          
 
-        monthly_data[year_month]['count'] += 1
-        monthly_data[year_month]['total_revenue'] += float(price)
+        try:             
+            price = float(unit_price)         
+        except (ValueError, TypeError):             
+            continue          
 
-    monthly_sales = [
-        {
-            'date': year_month,
-            'total_revenue': monthly_data[year_month]['total_revenue'],
-            'count': monthly_data[year_month]['count']
-        }
-        for year_month in sorted(monthly_data.keys())
-    ]
-    print('############ monthly sales : ', monthly_sales)
-    return monthly_sales
+        if month:             
+            # ✅ month가 있는 경우: 해당 월에 해당하는 날짜만 필터링             
+            if not date_key.startswith(month):                 
+                continue          
+
+        if date_key not in sales_data:             
+            sales_data[date_key] = {'count': 0, 'total_revenue': 0}          
+
+        sales_data[date_key]['count'] += 1         
+        sales_data[date_key]['total_revenue'] += price      
+
+    # 📌 정렬된 결과 리스트     
+    sales_list = [         
+        {             
+            'date': key,             
+            'total_revenue': sales_data[key]['total_revenue'],             
+            'count': sales_data[key]['count']         
+        }         
+        for key in sorted(sales_data.keys())     
+    ]      
+
+    return sales_list

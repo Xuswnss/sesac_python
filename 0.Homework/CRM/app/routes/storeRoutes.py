@@ -10,6 +10,7 @@ store_bp = Blueprint('stores', __name__ , url_prefix= '/stores')
 def render_store_page():
     return render_template('store.html')
 
+
 @store_bp.route('/api', methods = ['GET'])
 def store_list_api():
     print('#### store_list_api() 호출')
@@ -42,8 +43,9 @@ def api_get_store_detail(store_id):
 
 @store_bp.route('/api/get-store-month-sales/<string:store_id>')
 def api_get_store_month_sales(store_id):
-    result = storeService.get_store_month_sales(db.session, store_id)
-    print('#### result')
-    return jsonify(result)
+    month = request.args.get('month')
+    print('######## input month : ', month)
 
+    result = storeService.get_store_month_sales(db.session, store_id, month)
+    return jsonify(result)
 
