@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('UserID:', userId);
     fetchUser(userId)
     fetchUserOrders(userId)
+    fetchRegularStore(userId)
+    fetchRegularGoods(userId)
 })
 
 function fetchUser(user_id){
@@ -65,3 +67,45 @@ function fetchUserOrders(user_id){
 
         })
 }// end fetchUserOrders
+
+function fetchRegularStore(user_id){
+    fetch(`/users/user-detail/api/get-regular-store/${user_id}`)
+        .then(res => res.json())
+        .then(data =>{
+            console.log('store - data :',data)
+            const resultDiv = document.getElementById('regular-stores')
+            resultDiv.innerHTML = ''
+            if(data){
+                const stores = data.sort((a, b) => b.frequency - a.frequency).slice(0, 5);
+                stores.forEach(e => {
+                    const li = document.createElement('ul')
+                    li.innerHTML = `
+                        <li>${e.store_name} (${e.frequency}번 방문)</li>
+                    `
+                    resultDiv.appendChild(li)
+                    
+                });
+            }
+        })
+}
+
+function fetchRegularGoods(user_id){
+    fetch(`/users/user-detail/api/get-regular-goods/${user_id}`)
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            const resultDiv = document.getElementById('regular-goods')
+            resultDiv.innerHTML =''
+            if(data){
+                const goods = data.sort((a, b) => b.frequency - a.frequency).slice(0, 5);
+                goods.forEach(e => {
+                    const li = document.createElement('ul')
+                    li.innerHTML = `
+                        <li>${e.item_name} (${e.frequency}번 주문)</li>
+                    `
+                    resultDiv.appendChild(li)
+                    
+                });
+            }
+        })
+}

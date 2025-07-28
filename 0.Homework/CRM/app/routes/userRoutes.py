@@ -69,3 +69,16 @@ def api_get_user_orders(user_id):
     return jsonify([u.to_dict() for u in user])
 
 
+@user_bp.route('/user-detail/api/get-regular-store/<string:user_id>')
+def api_get_regular_stores(user_id):
+    result = userService.get_regular_store(db.session,user_id)
+    print(result)
+    return jsonify(result)
+
+@user_bp.route('/user-detail/api/get-regular-goods/<string:user_id>')
+def api_get_regular_goods(user_id):
+    result = userService.get_regular_goods(db.session,user_id)
+    print(result)
+    return jsonify(result)
+
+

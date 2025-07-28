@@ -35,9 +35,11 @@ CRM/
 - 단골 손님 리스트(store-detail) (완료)
   - 해당 월별 단골(store-detail-by-month) (완료)
   - 매장 별 단골(store-detail) (완료)
-- 가장많이 팔린 음료
+- 가장많이 팔린 음료(완료)
 - (item) 월별 매출액 그래프
-- (user-detail) 자주방문한 매장 top 5
-- (user-detail) 자주 주문한 상품 top 5
+- (user-detail) 자주방문한 매장 top 5 (완료)
+- (user-detail) 자주 주문한 상품 top 5 (완료)
 - user 추가 기능
 - 상품 주문 기능
+- 헤더 제거하기
+- 

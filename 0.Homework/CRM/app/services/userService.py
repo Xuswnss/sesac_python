@@ -1,5 +1,8 @@
 from app.models.users import User
 from app.models.orders import Order
+from app.models.orderitems import OrderItems
+from app.models.stores import Store
+from app.models.items import Item
 from sqlalchemy import func
 
 
@@ -46,6 +49,35 @@ def get_orderList_by_userId(session, user_id):
     print('### orders : ', orders)
     session.commit()
     return orders
-    
+  
+  
+def get_regular_store(session, user_id):
+    result = (
+        session.query(
+            Store.name,
+            func.count(Store.id).label('frequency')
+        )
+        .join(Order, Order.store_id == Store.id)
+        .filter(Order.user_id == user_id)
+        .group_by(Store.name)   
+    )
+
+    return [
+        {'store_name': name, 'frequency': frequency}
+        for name, frequency in result
+    ]
+
+def get_regular_goods(session, user_id):
+    result = (session.query(Item.name.label('items_name') , func.count(Item.id).label('frequency'))
+                .join(Order, Order.id == OrderItems.order_id)
+                .join(OrderItems, OrderItems.item_id == Item.id)
+                .filter(Order.user_id == user_id)
+                .group_by(Item.name)
+              )
+    return [
+        {'item_name' : name,
+         'frequency' : frequency
+         } for name, frequency in result
+    ]
 
 
