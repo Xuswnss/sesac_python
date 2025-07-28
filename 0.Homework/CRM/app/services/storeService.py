@@ -113,3 +113,5 @@ def list_customer_by_month(session, store_id, month):
         {"user_id": user_id, "name": name, "frequency": frequency}
         for user_id, name, frequency in results
     ]
+
+

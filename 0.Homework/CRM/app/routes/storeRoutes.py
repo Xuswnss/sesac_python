@@ -1,5 +1,7 @@
 from flask import Flask, render_template, Blueprint, jsonify, request
 import app.services.storeService as storeService
+import app.services.userService as userService
+import app.services.itemService as itemService
 from app import db
 
 # command + j  -> 터미널
@@ -54,13 +56,26 @@ def api_get_customer(store_id):
     month = request.args.get("month")  # 쿼리 파라미터에서 month 받기
 
     if month:
-        print(f"🟡 month 있음: {month}")
+       
         result = storeService.list_customer_by_month(db.session, store_id, month)
     else:
-        print("⚪ month 없음 → 전체 리스트")
+        
         result = storeService.list_all_customer(db.session, store_id)
 
     return jsonify(result)
 
+@store_bp.route('/order-menu/<string:store_id>')
+def render_order_menu_page(store_id):
+    return render_template('order-menu.html', store_id = store_id)
  
+@store_bp.route('/api/order-menu/<string:store_id>')
+def api_order_menu_page(store_id):
+    store = storeService.get_store_by_id(db.session,store_id)
+    users = userService.get_users(db.session)
+    items = itemService.get_items(db.session)
 
+    return jsonify({
+        "store": [s.to_dict() for s in store ],
+        "users": [u.to_dict() for u in users],
+        "items": [i.to_dict() for i in items]
+    })

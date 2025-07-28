@@ -29,6 +29,7 @@
                             <td>${store.type || ''}</td>
                             <td>${store.name || ''}</td>
                             <td>${store.address || ''}</td>
+                            <td><a href='/stores/order-menu/${store.id}'>주문하러 가기</a></td>
         
                         `;
                         result.appendChild(row);

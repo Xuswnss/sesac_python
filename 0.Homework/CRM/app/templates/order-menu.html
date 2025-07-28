@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} Order menu {% endblock %}
+{% block content %}
+<h1>order menu</h1>
+<div id="selected-store-info" data-selected-store-id="{{ store_id }}"></div>
+<table id="store-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th>아이디</th>
+            <th>브랜드</th>
+            <th>지점명</th>
+            <th>주소</th>
+        </tr>
+    </thead>
+    <tbody id="store-result"></tbody>
+</table>
+<hr>
+
+
+<div  style="max-height:200px; overflow-y:scroll;">
+  <table id="item-table" border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+     <tr style="background-color: #f2f2f2;">
+      <th>item_name</th>
+      <th>type</th>
+      <th>unit_price</th>
+    </tr>
+  </thead>
+  <tbody id="item-result"></tbody>
+</table>
+</div>
+
+<hr>
+<div>
+  <label for="user-search">유저 검색:</label>
+  <input type="text" id="user-search" placeholder="이름 검색..." />
+</div>
+<br>
+<div  style="max-height:200px; overflow-y:scroll;">
+  <table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+     <tr style="background-color: #f2f2f2;">
+      <th>유저 ID</th>
+      <th>이름</th>
+      <th>성별</th>
+    </tr>
+  </thead>
+  <tbody id="user-result"></tbody>
+</table>
+</div>
+
+<script src="/static/js/order-menu.js"></script>
+{%endblock%}
