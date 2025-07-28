@@ -53,9 +53,9 @@ function fetchUserOrders(user_id){
                 data.forEach(order => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                            <td>${order.id || ''}</td>
+                            <td><a href="/orderitems/orderItem-detail/${order.id}">${order.id || ''}</a></td>
                             <td>${order.order_at || ''}</td>
-                            <td>${order.store_id || ''}</td>
+                            <td><a href ='/stores/store-detail/$${order.store_id || ''}'>${order.store_id || ''}</a></td>
                     `;
                     result.appendChild(row)
                 })

@@ -17,8 +17,8 @@ function fetchOrderItem(page){
                 const row = document.createElement('tr')
                 row.innerHTML = `
                             <td>${orderitem.id || ''}</td>
-                            <td>${orderitem.order_id || ''}</td>
-                            <td>${orderitem.item_id || ''}</td>
+                            <td><a href = '/orders/order-detail/${orderitem.order_id || ''}'>${orderitem.order_id || ''}</a></td>
+                            <td><a href='/items/item-detail/${orderitem.item_id || ''}'>${orderitem.item_id || ''}</a></td>
                 `
                 resultDiv.appendChild(row)
                 })

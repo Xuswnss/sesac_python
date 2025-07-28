@@ -18,7 +18,7 @@ function fetchOrderItemsDetail(order_id){
                     row.innerHTML = `
                      <td>${item.id || ''}</td>
                             <td><a href = '/orders/order-detail/${item.order_id || ''}'>${item.order_id || ''}</a></td>
-                            <td>${item.item_id || ''}</td>
+                            <td><a href='/items/item-detail/${item.item_id || ''}'>${item.item_id || ''}</a></td>
                             <td>${item.item_name || ''}</td>
                             
                     `

@@ -100,7 +100,7 @@ function fetchStoreData(store_id, month = '') {
                     const row = document.createElement('tr');
                    
                     row.innerHTML = `
-                        <td>${c.user_id}</td>
+                        <td><a href="/users/user-detail/${c.user_id||''}">${c.user_id||''}</a></td>
                         <td>${c.name}</td>
                         <td>${c.frequency}</td>
                     `;
