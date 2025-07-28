@@ -13,7 +13,7 @@ function fetchOrders(page){
         
             console.log(data)
             if(data){
-                data.orders.forEach( order => {
+                data.orders.slice(1).forEach( order => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
                             <td><a href="/orderitems/orderItem-detail/${order.id}">${order.id || ''}</a></td>

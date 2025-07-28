@@ -21,6 +21,7 @@ function fetchItems(item_id){
             if(data){
     
                 const row = document.createElement('tr')
+                
                 row.innerHTML = `
                             <td>${data.name || ''}</td>
                             <td>${data.unit_price || ''}</td>

@@ -13,7 +13,7 @@ function fetchOrderItem(page){
         
             console.log(data)
             if(data){
-                data.orderitems.forEach( orderitem => {
+                data.orderitems.slice(1).forEach( orderitem => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
                             <td>${orderitem.id || ''}</td>

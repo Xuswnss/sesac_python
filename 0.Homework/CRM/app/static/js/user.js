@@ -33,7 +33,7 @@
                 console.log('data : ', data)
 
                 if (data.users && data.users.length > 0) {
-                    data.users.forEach(user => {
+                    data.users.slice(1).forEach(user => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td><a href="/users/user-detail/${user.id}">${user.id || ''}</a></td>

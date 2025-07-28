@@ -22,7 +22,7 @@
                 result.innerHTML = ''; // 기존 내용 초기화
 
                 if (data.stores && data.stores.length > 0) {
-                    data.stores.forEach(store => {
+                    data.stores.slice(1).forEach(store => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td><a href ='/stores/store-detail/${store.id}'>${store.id || ''}</a></td>

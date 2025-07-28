@@ -13,7 +13,7 @@ function fetchItems(page){
         
             console.log(data)
             if(data){
-                data.items.forEach( item => {
+                data.items.slice(1).forEach( item => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
                             <td><a href='/items/item-detail/${item.id}'>${item.id || ''}</a></td>
