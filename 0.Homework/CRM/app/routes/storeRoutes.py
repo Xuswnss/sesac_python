@@ -6,12 +6,12 @@ from app import db
 
 store_bp = Blueprint('stores', __name__ , url_prefix= '/stores')
 
-@store_bp.route('/', methods = ['GET'])
+@store_bp.route('/')
 def render_store_page():
     return render_template('store.html')
 
 
-@store_bp.route('/api', methods = ['GET'])
+@store_bp.route('/api')
 def store_list_api():
     print('#### store_list_api() 호출')
     page = int(request.args.get('page', 1))
@@ -48,4 +48,19 @@ def api_get_store_month_sales(store_id):
 
     result = storeService.get_store_month_sales(db.session, store_id, month)
     return jsonify(result)
+
+@store_bp.route('/api/get-customer-list/<string:store_id>')
+def api_get_customer(store_id):
+    month = request.args.get("month")  # 쿼리 파라미터에서 month 받기
+
+    if month:
+        print(f"🟡 month 있음: {month}")
+        result = storeService.list_customer_by_month(db.session, store_id, month)
+    else:
+        print("⚪ month 없음 → 전체 리스트")
+        result = storeService.list_all_customer(db.session, store_id)
+
+    return jsonify(result)
+
+ 
 

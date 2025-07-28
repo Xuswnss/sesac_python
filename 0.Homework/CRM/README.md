@@ -31,10 +31,10 @@ CRM/
 --- 
 
 해야되는거 
-- 페이징 오류 해결
-- 단골 손님 리스트(store-detail)
-  - 해당 월별 단골(store-detail-by-month)
-  - 매장 별 단골(store-detail)
+- 페이징 오류 해결 (완료)
+- 단골 손님 리스트(store-detail) (완료)
+  - 해당 월별 단골(store-detail-by-month) (완료)
+  - 매장 별 단골(store-detail) (완료)
 - 가장많이 팔린 음료
 - (item) 월별 매출액 그래프
 - (user-detail) 자주방문한 매장 top 5

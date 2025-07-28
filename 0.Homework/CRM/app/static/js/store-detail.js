@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     const storeId = storeInfo.dataset.storeId
     console.log('storeId : ', storeId)
     fetchStoreDetail(storeId)
-    fetchStoreMonthSales(storeId)
+    fetchStoreData(storeId)
+    // fetchCustomerList(storeId)??
 })
 
 function fetchStoreDetail(store_id){
@@ -27,13 +28,15 @@ function fetchStoreDetail(store_id){
         })
 }// end fetchStoreDetail(store_id)
 
-function fetchStoreMonthSales(store_id, month = '') {
-    let url = `/stores/api/get-store-month-sales/${store_id}`;
+function fetchStoreData(store_id, month = '') {
+    // 1️⃣ 매출 데이터 URL 구성
+    let salesUrl = `/stores/api/get-store-month-sales/${store_id}`;
     if (month) {
-        url += `?month=${encodeURIComponent(month)}`;
+        salesUrl += `?month=${encodeURIComponent(month)}`;
     }
+    console.log('[매출] month :', month);
 
-    fetch(url)
+    fetch(salesUrl)
         .then(res => res.json())
         .then(data => {
             console.log('get-data-Month_sales : ', data);
@@ -44,15 +47,11 @@ function fetchStoreMonthSales(store_id, month = '') {
                 data.forEach(e => {
                     const row = document.createElement('tr');
 
-                    // month가 있으면 일별 데이터(YYYY-MM-DD), 없으면 월별 데이터(YYYY-MM)
-                    // 클릭 시 다시 fetch 하려면 링크 설정
                     let dateDisplay = e.date || '';
                     let dateLink = '';
                     if (!month) {
-                        // 월별 리스트: 클릭하면 해당 월 일별 데이터 요청
                         dateLink = `<a href="#" data-month="${dateDisplay}">${dateDisplay}</a>`;
                     } else {
-                        // 일별 리스트: 클릭 시 동작 없거나 상세 페이지로 이동 가능
                         dateLink = dateDisplay;
                     }
 
@@ -70,10 +69,45 @@ function fetchStoreMonthSales(store_id, month = '') {
                         anchor.addEventListener('click', (e) => {
                             e.preventDefault();
                             const selectedMonth = e.target.dataset.month;
-                            fetchStoreMonthSales(store_id, selectedMonth);
+                            fetchStoreData(store_id, selectedMonth); // ✅ 같은 month로 재호출
                         });
                     });
                 }
+            }
+        });
+
+    // 2️⃣ 고객 목록 URL 구성
+    let customerUrl = `/stores/api/get-customer-list/${store_id}`;
+    if (month) {
+        customerUrl += `?month=${encodeURIComponent(month)}`;
+    }
+
+    console.log('[고객] month:', month);
+    console.log('[고객] 요청 URL:', customerUrl);
+
+    fetch(customerUrl)
+        .then(res => res.json())
+        .then(data => {
+             
+            console.log('고객 목록:', data);
+            const resultDiv = document.getElementById('customer-result');
+            resultDiv.innerHTML = '';
+
+            if (data && data.length > 0) {
+                data.sort((a, b) => b.frequency - a.frequency);
+
+                data.forEach(c => {
+                    const row = document.createElement('tr');
+                   
+                    row.innerHTML = `
+                        <td>${c.user_id}</td>
+                        <td>${c.name}</td>
+                        <td>${c.frequency}</td>
+                    `;
+                    resultDiv.append(row);
+                });
+            } else {
+                resultDiv.innerHTML = '<tr><td colspan="3">해당 월에 고객이 없습니다.</td></tr>';
             }
         });
 }

@@ -1,9 +1,10 @@
 from app.models.stores import Store
 from app.models.orders import Order
 from app.models.items import Item
-from app.models.orderitems import OrderItems
-from sqlalchemy.orm import joinedload
+from app.models.users import User
 from sqlalchemy import func
+from app.models.orderitems import OrderItems
+
 
 def get_stores(session) -> list[Store]:
     store_list = session.query(Store).all()
@@ -47,8 +48,7 @@ def get_store_month_sales(session, store_id, month=None):
         except (ValueError, TypeError):             
             continue          
 
-        if month:             
-            # ✅ month가 있는 경우: 해당 월에 해당하는 날짜만 필터링             
+        if month:                      
             if not date_key.startswith(month):                 
                 continue          
 
@@ -57,8 +57,7 @@ def get_store_month_sales(session, store_id, month=None):
 
         sales_data[date_key]['count'] += 1         
         sales_data[date_key]['total_revenue'] += price      
-
-    # 📌 정렬된 결과 리스트     
+   
     sales_list = [         
         {             
             'date': key,             
@@ -69,3 +68,48 @@ def get_store_month_sales(session, store_id, month=None):
     ]      
 
     return sales_list
+
+
+
+
+from sqlalchemy import func, extract
+
+from sqlalchemy import func, extract
+from app.models.orders import Order
+from app.models.users import User
+
+def list_all_customer(session, store_id):
+    results = (
+        session.query(Order.user_id, User.name, func.count(Order.id).label("frequency"))
+        .join(User, Order.user_id == User.id)
+        .filter(Order.store_id == store_id)
+        .group_by(Order.user_id, User.name)
+        .all()
+    )
+
+    return [
+        {"user_id": user_id, "name": name, "frequency": frequency}
+        for user_id, name, frequency in results
+    ]
+
+
+def list_customer_by_month(session, store_id, month):
+    try:
+        year, month_number = map(int, month.split('-'))
+    except ValueError:
+        return []
+
+    results = (
+        session.query(Order.user_id, User.name, func.count(Order.id).label("frequency"))
+        .join(User, Order.user_id == User.id)
+        .filter(Order.store_id == store_id)
+        .filter(extract('year', Order.order_at) == year)
+        .filter(extract('month', Order.order_at) == month_number)
+        .group_by(Order.user_id, User.name)
+        .all()
+    )
+
+    return [
+        {"user_id": user_id, "name": name, "frequency": frequency}
+        for user_id, name, frequency in results
+    ]
