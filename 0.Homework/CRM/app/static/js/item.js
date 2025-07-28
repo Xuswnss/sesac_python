@@ -16,7 +16,7 @@ function fetchItems(page){
                 data.items.forEach( item => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
-                            <td>${item.id || ''}</td>
+                            <td><a href='/items/item-detail/${item.id}'>${item.id || ''}</a></td>
                             <td>${item.type || ''}</td>
                             <td>${item.name || ''}</td>
                             <td>${item.unit_price || ''}</td>

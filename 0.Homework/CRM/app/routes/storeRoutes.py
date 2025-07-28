@@ -7,7 +7,7 @@ from app import db
 store_bp = Blueprint('stores', __name__ , url_prefix= '/stores')
 
 @store_bp.route('/', methods = ['GET'])
-def store_page():
+def render_store_page():
     return render_template('store.html')
 
 @store_bp.route('/api', methods = ['GET'])
@@ -27,4 +27,23 @@ def store_list_api():
     }
     
     return jsonify(result)
+
+@store_bp.route('/store-detail/<string:store_id>')
+def render_store_detail_page(store_id):
+    return render_template('store-detail.html', store_id = store_id)
+
+
+@store_bp.route('/api/get-store-detail/<string:store_id>')
+def api_get_store_detail(store_id):
+    result = storeService.get_store_by_id(db.session, store_id)
+    
+    result = [r.to_dict() for r in result]
+    return jsonify(result)
+
+@store_bp.route('/api/get-store-month-sales/<string:store_id>')
+def api_get_store_month_sales(store_id):
+    result = storeService.get_store_month_sales(db.session, store_id)
+    print('#### result')
+    return jsonify(result)
+
 

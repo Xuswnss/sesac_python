@@ -25,7 +25,7 @@
                     data.stores.forEach(store => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${store.id || ''}</td>
+                            <td><a href ='/stores/store-detail/${store.id}'>${store.id || ''}</a></td>
                             <td>${store.type || ''}</td>
                             <td>${store.name || ''}</td>
                             <td>${store.address || ''}</td>

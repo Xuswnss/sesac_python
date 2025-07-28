@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} User {% endblock %}
+{% block content %}
+
+
+<h1>store detail목록</h1>
+<div id="store-info" data-store-id="{{ store_id }}"></div>
+</button>
+<p id="error"></p>
+</form>
+<div>
+    <!-- 상품정보 -->
+     <table border="1" style="border-collapse: collapse; width: 100%;">
+        <thead>
+       <tr style="background-color: #f2f2f2;">
+            <th>name</th>
+            <th>type</th>
+            <th>address</th>
+
+           
+        </tr></thead>
+         <tbody id="store-result"> </tbody>
+     </table>
+</div>
+<div id="sales-result-wrapper" style="max-height:200px; overflow-y:scroll;">
+  <table id="user-table" border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th>Month</th>
+        <th>Revenue</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody id="sales-result">
+      <!-- 데이터 행들 -->
+    </tbody>
+  </table>
+</div>
+
+<div>월별매출액</div>
+
+<script src="/static/js/store-detail.js"></script>
+{%endblock%}
