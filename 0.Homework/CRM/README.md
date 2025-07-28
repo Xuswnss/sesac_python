@@ -30,11 +30,14 @@ CRM/
 
 --- 
 
-user-detail page
-- users page에서 user_id 값 클릭
-- http://makemyproject.net/crm/user_detail/0a497257-2b1a-4836-940f-7b95db952e61
-- 주소 구성 /user_detail/user_id
-- 고객 정보 (id)
-- order_id -> orders.id
-- purchased_date -> orders.order_at
-- purchased location -> orders.store_id
+해야되는거 
+- 페이징 오류 해결
+- 단골 손님 리스트(store-detail)
+  - 해당 월별 단골(store-detail-by-month)
+  - 매장 별 단골(store-detail)
+- 가장많이 팔린 음료
+- (item) 월별 매출액 그래프
+- (user-detail) 자주방문한 매장 top 5
+- (user-detail) 자주 주문한 상품 top 5
+- user 추가 기능
+- 상품 주문 기능

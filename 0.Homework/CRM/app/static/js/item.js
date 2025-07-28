@@ -71,44 +71,34 @@ function fetchItems(page){
     }
     // #generatePageNumbers
     function generatePageNumbers(current, total) {
-        const delta = 2; // 현재 페이지 주변에 보여줄 페이지 수
-        const range = [];
-        const rangeWithDots = [];
+    const delta = 2; // 현재 페이지 앞뒤로 표시할 범위
+    const range = [];
+    
+    const left = current - delta;
+    const right = current + delta;
 
-        // 총 페이지가 7개 이하면 모두 표시
-        if (total <= 7) {
-            for (let i = 1; i <= total; i++) {
-                range.push(i);
-            }
-            return range;
-        }
+    const showLeftEllipsis = left > 2;
+    const showRightEllipsis = right < total - 1;
 
-        // 시작과 끝 페이지 계산
-        const start = Math.max(1, current - delta);
-        const end = Math.min(total, current + delta);
+    range.push(1); // Always show the first page
 
-        // 첫 페이지 추가
-        if (start > 1) {
-            range.push(1);
-            if (start > 2) {
-                range.push('...');
-            }
-        }
-
-        // 현재 페이지 주변 페이지들 추가
-        for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
-
-        // 마지막 페이지 추가
-        if (end < total) {
-            if (end < total - 1) {
-                range.push('...');
-            }
-            range.push(total);
-        }
-
-        return range;
+    if (showLeftEllipsis) {
+        range.push('...');
     }
+
+    for (let i = Math.max(2, left); i <= Math.min(total - 1, right); i++) {
+        range.push(i);
+    }
+
+    if (showRightEllipsis) {
+        range.push('...');
+    }
+
+    if (total > 1) {
+        range.push(total); // Always show the last page
+    }
+
+    return range;
+}
 
    

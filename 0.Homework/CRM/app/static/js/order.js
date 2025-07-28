@@ -33,82 +33,109 @@ function fetchOrders(page){
            currentPage = data.page;
                 totalPages = data.pages;
                 console.log('current-Page :' , data.page, 'total Page:', data.pages)
-              updatePaginationControls();     
+              updatePaginationControls();  
+              updatePageInfo()
+               
 
 
         }
     
     )
+
+    // 이전 버튼
+    function updatePaginationControls() {
+    const paginationContainer = document.getElementById('page-numbers');
+    paginationContainer.innerHTML = '';
+    
+    // 이전 버튼
+    const prevBtn = document.createElement('button');
+    prevBtn.innerHTML = '&laquo;';
+    prevBtn.className = 'page-btn prev-btn';
+    prevBtn.disabled = currentPage === 1;
+    if (currentPage > 1) {
+        prevBtn.onclick = () => fetchOrders(currentPage - 1);
+    }
+    paginationContainer.appendChild(prevBtn);
+    
+    // 페이지 번호들
+    const pageNumbers = generatePageNumbers(currentPage, totalPages);
+    pageNumbers.forEach(pageNum => {
+        const pageBtn = document.createElement('button');
+        pageBtn.innerHTML = pageNum;
+        pageBtn.className = 'page-btn';
+        
+        if (pageNum === currentPage) {
+            pageBtn.classList.add('active');
+        } else {
+            pageBtn.onclick = () => fetchOrders(pageNum);
+        }
+        
+        paginationContainer.appendChild(pageBtn);
+    });
+    
+    // 다음 버튼
+    const nextBtn = document.createElement('button');
+    nextBtn.innerHTML = '&raquo;';
+    nextBtn.className = 'page-btn next-btn';
+    nextBtn.disabled = currentPage === totalPages;
+    if (currentPage < totalPages) {
+        nextBtn.onclick = () => fetchOrders(currentPage + 1);
+    }
+    paginationContainer.appendChild(nextBtn);
 }
 
- // #updatePaginationControls
-    function updatePaginationControls() {
-        const pageNumbersDiv = document.getElementById('page-numbers');
-        pageNumbersDiv.innerHTML = '';
-        const pageNumbers = generatePageNumbers(currentPage, totalPages);
+// 페이지 번호 생성
+function generatePageNumbers(current, total) {
+    const pages = [];
+    const maxVisible = 7;
+    
+    if (total <= maxVisible) {
+        // 전체 페이지가 maxVisible 이하면 모든 페이지 표시
+        for (let i = 1; i <= total; i++) {
+            pages.push(i);
+        }
+    } else {
+        // 첫 페이지는 항상 표시
+        pages.push(1);
         
-        pageNumbers.forEach(item => {
-            if (item === '...') {
-                const ellipsis = document.createElement('span');
-                ellipsis.textContent = '...';
-                ellipsis.className = 'page-ellipsis';
-                pageNumbersDiv.appendChild(ellipsis);
-            } else {
-                const pageBtn = document.createElement('button');
-                pageBtn.textContent = item;
-                pageBtn.className = 'page-number';
-                
-                if (item === currentPage) {
-                    pageBtn.classList.add('active');
-                    pageBtn.disabled = true;
-                } else {
-                    pageBtn.onclick = () => fetchOrders(item);
-                }
-                
-                pageNumbersDiv.appendChild(pageBtn);
-            }
-        });
-    }
-    // #generatePageNumbers
-    function generatePageNumbers(current, total) {
-        const delta = 2; // 현재 페이지 주변에 보여줄 페이지 수
-        const range = [];
-        const rangeWithDots = [];
-
-        // 총 페이지가 7개 이하면 모두 표시
-        if (total <= 7) {
-            for (let i = 1; i <= total; i++) {
-                range.push(i);
-            }
-            return range;
-        }
-
-        // 시작과 끝 페이지 계산
-        const start = Math.max(1, current - delta);
-        const end = Math.min(total, current + delta);
-
-        // 첫 페이지 추가
-        if (start > 1) {
-            range.push(1);
-            if (start > 2) {
-                range.push('...');
+        const halfVisible = Math.floor((maxVisible - 2) / 2); // 첫/마지막 페이지 제외한 가운데 영역
+        let start = Math.max(2, current - halfVisible);
+        let end = Math.min(total - 1, current + halfVisible);
+        
+        // 가운데 영역이 maxVisible-2 개가 되도록 조정
+        const middleCount = maxVisible - 2;
+        if (end - start + 1 < middleCount) {
+            if (start === 2) {
+                end = Math.min(total - 1, start + middleCount - 1);
+            } else if (end === total - 1) {
+                start = Math.max(2, end - middleCount + 1);
             }
         }
-
-        // 현재 페이지 주변 페이지들 추가
+        
+        // 가운데 페이지들 추가
         for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
-
-        // 마지막 페이지 추가
-        if (end < total) {
-            if (end < total - 1) {
-                range.push('...');
+            if (i !== 1 && i !== total && !pages.includes(i)) {
+                pages.push(i);
             }
-            range.push(total);
         }
-
-        return range;
+        
+        // 마지막 페이지는 항상 표시 (첫 페이지와 다른 경우만)
+        if (total > 1) {
+            pages.push(total);
+        }
     }
+    
+    return pages;
+}
 
-   
+// 페이지 정보 표시
+function updatePageInfo() {
+    const pageInfo = document.getElementById('page-info');
+    if (pageInfo) {
+        // 현재 페이지 / 전체 페이지 형태로 표시
+        pageInfo.innerHTML = `${currentPage} / ${totalPages}`;
+
+    }
+}
+
+}
