@@ -17,7 +17,7 @@ def get_users(session) -> list[User]:
 # 1. 이름과 나이값 받은 후 조회하는 코드 if문으로 쓰기
 from sqlalchemy import func
 
-def search_user(session, name=None, gender=None) -> User:
+def search_user(session, name=None, gender=None, page=1, per_page=10) -> list[User]:
     filters = []
     
     if name:
@@ -25,11 +25,19 @@ def search_user(session, name=None, gender=None) -> User:
     if gender: 
         filters.append(func.lower(User.gender) == gender.lower())
     if not filters:  
-        return None
+        return []
 
-    # 사용자 검색
-    user = session.query(User).filter(*filters).all()
-    return user 
+    query = session.query(User).filter(*filters)
+    total = query.count()  # 전체 개수
+    users = query.offset((page - 1) * per_page).limit(per_page).all()
+
+    return {
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "users": users
+    }
+
 
 
 # user paginated

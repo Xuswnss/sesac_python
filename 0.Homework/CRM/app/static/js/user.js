@@ -9,8 +9,18 @@
     });
 
     // #fetchUser (pagination)
-    function fetchUsers(page) {
-        fetch(`/users/api?page=${page}&per_page=10`)
+    function fetchUsers(page = 1, name = '', gender = '') {
+         currentPage = page;
+        currentName = name;
+        currentGender = gender;
+        let url = '';
+        // 검색 조건 있으면 search API 호출, 없으면 기본 API 호출
+        if (name || gender) {
+        url = `/users/api/search?name=${encodeURIComponent(name)}&gender=${encodeURIComponent(gender)}&page=${page}&per_page=10`;
+        } else {
+        url = `/users/api?page=${page}&per_page=10`;
+        }
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     console.log(res.status)
@@ -41,9 +51,15 @@
                     result.appendChild(row);
                 }
 
-                currentPage = data.page;
-                totalPages = data.pages;
-                console.log('current-Page :' , data.page, 'total Page:', data.pages)
+                currentPage = data.page || 1;
+                if (data.pages) {
+                    totalPages = data.pages;
+                } else if (data.total && data.per_page) {
+                     totalPages = Math.ceil(data.total / data.per_page);
+                } else {
+                         totalPages = 1;
+                }
+
                 
                 updatePaginationControls();
                 updatePageInfo()
@@ -63,7 +79,7 @@
     prevBtn.className = 'page-btn prev-btn';
     prevBtn.disabled = currentPage === 1;
     if (currentPage > 1) {
-        prevBtn.onclick = () => fetchUsers(currentPage - 1);
+        prevBtn.onclick = () => fetchUsers(currentPage - 1, currentName, currentGender);
     }
     paginationContainer.appendChild(prevBtn);
     
@@ -77,7 +93,7 @@
         if (pageNum === currentPage) {
             pageBtn.classList.add('active');
         } else {
-            pageBtn.onclick = () => fetchUsers(pageNum);
+            pageBtn.onclick = () => fetchUsers(pageNum , currentName, currentGender);
         }
         
         paginationContainer.appendChild(pageBtn);
@@ -89,7 +105,7 @@
     nextBtn.className = 'page-btn next-btn';
     nextBtn.disabled = currentPage === totalPages;
     if (currentPage < totalPages) {
-        nextBtn.onclick = () => fetchUsers(currentPage + 1);
+        nextBtn.onclick = () => fetchUsers(currentPage +1, currentName, currentGender);
     }
     paginationContainer.appendChild(nextBtn);
 }
@@ -152,38 +168,10 @@ function updatePageInfo() {
 
     search_form.addEventListener('submit',(e)=>{
         e.preventDefault()
-        const result = document.getElementById('result');
-        let name = document.getElementById('name-input').value
-        let gender = document.getElementById('gender-select-box').value
-        console.log('input value : ',name,' ',gender )
-        name = encodeURIComponent(name) //한글은 인코딩하고 넣기
-        gender = encodeURIComponent(gender)
-        fetch(`/users/api/search?name=${name}&gender=${gender}`)
-            .then((res) =>{
-                return res.json()
-            })
-            .then((data) =>{
-                console.log('data : ',data)
-                if (data && data.length > 0) {
-                    data.forEach(user => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${user.id || ''}</td>
-                            <td>${user.name || ''}</td>
-                            <td>${user.age || ''}</td>
-                            <td>${user.gender || ''}</td>
-                            <td>${user.birthday || ''}</td>
-                            <td>${user.address || ''}</td>
-                        `;
-                        result.appendChild(row);
-                    });
-                }else{
-                    error.innerHTML = data.error
-                    error.style = 'color : red'
-                }
-            })
-          
+        currentName = document.getElementById('name-input').value.trim();
+        currentGender = document.getElementById('gender-select-box').value;
+        currentPage = 1;  // 검색할 때는 페이지 1로 초기화
+    fetchUsers(currentPage, currentName, currentGender);
     })
-
     
 
