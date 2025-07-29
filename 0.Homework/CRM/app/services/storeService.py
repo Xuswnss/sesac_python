@@ -2,8 +2,9 @@ from app.models.stores import Store
 from app.models.orders import Order
 from app.models.items import Item
 from app.models.users import User
-from sqlalchemy import func
+from sqlalchemy import func, extract
 from app.models.orderitems import OrderItems
+
 
 
 def get_stores(session) -> list[Store]:
@@ -11,7 +12,7 @@ def get_stores(session) -> list[Store]:
     session.commit()
     return store_list
 
-# store paginated
+
 def store_paginated(session, page=1, per_page=10):
     pagination = session.query(Store).paginate(page=page, per_page=per_page, error_out=False)
     return pagination  
@@ -70,13 +71,6 @@ def get_store_month_sales(session, store_id, month=None):
     return sales_list
 
 
-
-
-from sqlalchemy import func, extract
-
-from sqlalchemy import func, extract
-from app.models.orders import Order
-from app.models.users import User
 
 def list_all_customer(session, store_id):
     results = (

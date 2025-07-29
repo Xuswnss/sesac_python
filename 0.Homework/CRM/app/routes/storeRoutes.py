@@ -53,7 +53,7 @@ def api_get_store_month_sales(store_id):
 
 @store_bp.route('/api/get-customer-list/<string:store_id>')
 def api_get_customer(store_id):
-    month = request.args.get("month")  # 쿼리 파라미터에서 month 받기
+    month = request.args.get("month")  
 
     if month:
        

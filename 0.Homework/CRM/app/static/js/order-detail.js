@@ -16,9 +16,9 @@ function fetchOrderItems(order_id){
                     const row = document.createElement('tr')
                     row.innerHTML = `
                      <td>${item.id || ''}</td>
-                            <td>${item.order_at || ''}</td>
-                            <td>${item.store_id || ''}</td>
-                            <td>${item.user_id || ''}</td>
+                     <td>${item.order_at || ''}</td>
+                     <td>${item.store_id || ''}</td>
+                     <td>${item.user_id || ''}</td>
                             
                     `
                     result.append(row)

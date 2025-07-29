@@ -30,7 +30,6 @@ def api_get_items():
 
 @item_bp.route('/item-detail/<string:item_id>')
 def render_item_detail(item_id):
-    print('##### item_id ', item_id)
     return render_template('item-detail.html',item_id = item_id)
 
 @item_bp.route('/api/get-item-detail/<string:item_id>')
@@ -42,9 +41,6 @@ def api_get_item_detail(item_id):
 @item_bp.route('/api/get-months-sales-data/<string:item_id>')
 def api_get_months_sales_data(item_id):
     result =  itemService.get_monthly_sales(db.session,item_id)
-    # for r in result:
-    #  print('############ get- months sales : ', r)
-    
     return jsonify(result)
     
     

@@ -16,15 +16,15 @@ def api_get_orders():
     print('#### order_list_api() 호출')
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page',10))
-    pagination = orderService.get_orders(db.session,page, per_page)
-    orders = pagination.items
+    result = orderService.get_orders(db.session,page, per_page)
+    orders = result.items
     
     result = {
         'orders' : [i.to_dict() for i in orders],
-        'total' : pagination.total,
-        'page' : pagination.page,
-        'per_page' : pagination.per_page,
-        'pages' : pagination.pages
+        'total' : result.total,
+        'page' : result.page,
+        'per_page' : result.per_page,
+        'pages' : result.pages
     }
     
     return jsonify(result)
@@ -38,7 +38,6 @@ def render_order_detail(order_id):
 def api_get_order_detail(order_id):
     result = orderService.get_order_by_orderId(db.session, order_id)
     result = [r.to_dict() for r in result]
-    print('##### result : ', result)
     return jsonify(result)
     
 

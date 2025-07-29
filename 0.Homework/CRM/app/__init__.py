@@ -10,9 +10,7 @@ def create_app():
     app.config.from_object("config") 
     
     db.init_app(app)
-    
-    #블루포인트 등록
-    # 순환 참조 방지
+   
     from app.routes.userRoutes import user_bp
     app.register_blueprint(user_bp)
     
@@ -27,6 +25,9 @@ def create_app():
     
     from app.routes.orderRoutes import order_bp
     app.register_blueprint(order_bp)
+    
+    from app.routes.homeRoutes import home_bp
+    app.register_blueprint(home_bp)
     
     
     return app

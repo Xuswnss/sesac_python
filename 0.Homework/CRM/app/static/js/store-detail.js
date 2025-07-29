@@ -29,12 +29,12 @@ function fetchStoreDetail(store_id){
 }// end fetchStoreDetail(store_id)
 
 function fetchStoreData(store_id, month = '') {
-    // 1️⃣ 매출 데이터 URL 구성
+   
     let salesUrl = `/stores/api/get-store-month-sales/${store_id}`;
     if (month) {
         salesUrl += `?month=${encodeURIComponent(month)}`;
     }
-    console.log('[매출] month :', month);
+    console.log(' month :', month);
 
     fetch(salesUrl)
         .then(res => res.json())
@@ -69,14 +69,14 @@ function fetchStoreData(store_id, month = '') {
                         anchor.addEventListener('click', (e) => {
                             e.preventDefault();
                             const selectedMonth = e.target.dataset.month;
-                            fetchStoreData(store_id, selectedMonth); // ✅ 같은 month로 재호출
+                            fetchStoreData(store_id, selectedMonth); 
                         });
                     });
                 }
             }
         });
 
-    // 2️⃣ 고객 목록 URL 구성
+    
     let customerUrl = `/stores/api/get-customer-list/${store_id}`;
     if (month) {
         customerUrl += `?month=${encodeURIComponent(month)}`;

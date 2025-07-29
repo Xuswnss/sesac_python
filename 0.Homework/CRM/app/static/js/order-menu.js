@@ -24,7 +24,7 @@ function fetchOrderMenu(store_id){
             itemResultDiv.innerHTML =''
         if(stores){
             
-            stores.forEach(store => {
+            stores.slice(1).forEach(store => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
                 <td>${store.id}</td>
@@ -39,7 +39,7 @@ function fetchOrderMenu(store_id){
         }
 
         if(items){
-             items.forEach(i => {
+             items.slice(1).forEach(i => {
                 const row = document.createElement('tr')
                 row.innerHTML = `
                 <td>${i.name}</td>

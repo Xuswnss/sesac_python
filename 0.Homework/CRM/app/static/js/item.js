@@ -41,64 +41,38 @@ function fetchItems(page){
     )
 }
 
- // #updatePaginationControls
+ 
     function updatePaginationControls() {
-        const pageNumbersDiv = document.getElementById('page-numbers');
-        pageNumbersDiv.innerHTML = '';
-        const pageNumbers = generatePageNumbers(currentPage, totalPages);
-        
-        pageNumbers.forEach(item => {
-            if (item === '...') {
-                const ellipsis = document.createElement('span');
-                ellipsis.textContent = '...';
-                ellipsis.className = 'page-ellipsis';
-                pageNumbersDiv.appendChild(ellipsis);
-            } else {
-                const pageBtn = document.createElement('button');
-                pageBtn.textContent = item;
-                pageBtn.className = 'page-number';
-                
-                if (item === currentPage) {
-                    pageBtn.classList.add('active');
-                    pageBtn.disabled = true;
-                } else {
-                    pageBtn.onclick = () => fetchItems(item);
-                }
-                
-                pageNumbersDiv.appendChild(pageBtn);
-            }
-        });
-    }
-    // #generatePageNumbers
-    function generatePageNumbers(current, total) {
-    const delta = 2; // 현재 페이지 앞뒤로 표시할 범위
-    const range = [];
+    const pageNumbersDiv = document.getElementById('page-numbers');
+    pageNumbersDiv.innerHTML = '';
+    const pageNumbers = generatePageNumbers(currentPage, totalPages);
     
-    const left = current - delta;
-    const right = current + delta;
+    pageNumbers.forEach(item => {
+        const pageBtn = document.createElement('button');
+        pageBtn.textContent = item;
+        pageBtn.className = 'page-number';
+        
+        if (item === currentPage) {
+            pageBtn.classList.add('active');
+            pageBtn.disabled = true;
+        } else {
+            pageBtn.onclick = () => fetchItems(item);
+        }
+        
+        pageNumbersDiv.appendChild(pageBtn);
+    });
+}
 
-    const showLeftEllipsis = left > 2;
-    const showRightEllipsis = right < total - 1;
+function generatePageNumbers(current, total) {
+    const delta = 2; 
+    const range = [];
 
-    range.push(1); // Always show the first page
+    const start = Math.max(1, current - delta);
+    const end = Math.min(total, current + delta);
 
-    if (showLeftEllipsis) {
-        range.push('...');
-    }
-
-    for (let i = Math.max(2, left); i <= Math.min(total - 1, right); i++) {
+    for (let i = start; i < end; i++) {
         range.push(i);
-    }
-
-    if (showRightEllipsis) {
-        range.push('...');
-    }
-
-    if (total > 1) {
-        range.push(total); // Always show the last page
     }
 
     return range;
 }
-
-   

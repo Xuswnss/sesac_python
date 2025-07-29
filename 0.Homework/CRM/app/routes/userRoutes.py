@@ -16,17 +16,16 @@ def user_list_api():
     print('#### userAPI 호출')
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page', 10))
-    # print(f'### input page: {page}, per_page : {per_page}')
-    pagination = userService.user_paginated(db.session, page, per_page)
+    result = userService.user_paginated(db.session, page, per_page)
     # print(pagination.items)
-    users = pagination.items
+    users = result.items
     # users를 순회한 객체 u를 to_dict()메서드 처리해서 리스트[]로 반환
     result = {
         "users": [u.to_dict() for u in users],
-        "total": pagination.total,
-        "page": pagination.page,
-        "per_page": pagination.per_page,
-        "pages": pagination.pages
+        "total": result.total,
+        "page": result.page,
+        "per_page": result.per_page,
+        "pages": result.pages
     }
     # print( result in range(1,10))
     return jsonify(result)
@@ -49,7 +48,6 @@ def user_search():
 
     result = userService.search_user(db.session, name, gender, page, per_page)
 
-  
     return jsonify({
         "total": result["total"],
         "page": result["page"],

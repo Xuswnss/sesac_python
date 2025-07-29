@@ -37,7 +37,7 @@ def render_order_detail(order_id):
 @orderItem_bp.route('/api/get-order-item/<string:order_id>')
 def get_order_detail(order_id):
     result = orderItemService.get_orderItems_detail_by_orderId(db.session, order_id)
-
+    
     response = [
         {
         **row[0].to_dict(),

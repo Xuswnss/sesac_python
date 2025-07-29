@@ -2,6 +2,7 @@ import os
 
 DEBUG = True
 PORT = 5050
+HOST = '0.0.0.0'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
