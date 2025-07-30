@@ -71,8 +71,7 @@
         pageBtn.innerHTML = pageNum;
         pageBtn.className = 'page-btn';
         
-        if (pageNum === currentPage) {
-            
+        if (pageNum === currentPage) {   
             pageBtn.style.color = 'red';
         } else {
             pageBtn.onclick = () => fetchStore(pageNum);
@@ -95,7 +94,7 @@
 // 페이지 번호 생성
 function generatePageNumbers(current, total) {
     const pages = [];
-    const maxVisible = 7;
+    const maxVisible = 11;
         pages.push(1);
         
         const halfVisible = Math.floor((maxVisible - 2) / 2); // 첫/마지막 페이지 제외한 가운데 영역

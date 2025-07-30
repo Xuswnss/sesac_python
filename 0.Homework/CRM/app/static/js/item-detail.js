@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-      const itemInfo = document.getElementById('item-info')
+    const itemInfo = document.getElementById('item-info')
     const itemId = itemInfo.dataset.itemId
     console.log('itemId : ', itemId)
     fetchItems(itemId)

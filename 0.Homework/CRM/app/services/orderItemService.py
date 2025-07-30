@@ -11,7 +11,6 @@ def get_orderItems(session,page =1, per_page=10):
 
 def get_orderItems_detail_by_orderId(session, order_id):
     rows = session.query(OrderItems,Item.name).join(Item, OrderItems.item_id == Item.id).filter(OrderItems.order_id == order_id).all()
-   
     session.commit()
     return rows
 

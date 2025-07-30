@@ -40,7 +40,7 @@ def user_search():
     page = int(request.args.get('page', 1))      
     per_page = int(request.args.get('per_page', 10)) 
 
-    if not name or not gender:
+    if not name and not gender:
         return jsonify({
             'error': '이름과 성별을 입력하세요',
             'status': 400
@@ -56,7 +56,7 @@ def user_search():
     })
 
 
-@user_bp.route('/user-detail/<string:user_id>', methods = ['GET'])
+@user_bp.route('/user-detail/<string:user_id>')
 def get_user_detail(user_id):
     print('##### input User Id : ', user_id)
     return render_template('user-detail.html', user_id = user_id)
