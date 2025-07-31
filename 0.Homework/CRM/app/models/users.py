@@ -15,6 +15,9 @@ class User(db.Model):
     gender = db.Column(String)
     birthday = db.Column(String)
     address = db.Column(String)
+    authority = db.Column(String)
+    username = db.Column(String)
+    password = db.Column(String)
     
     
     # SQLAlchemy에는 자동으로 dict으로 변환해주는게 없어서 to_dict()메서드 반환

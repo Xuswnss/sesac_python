@@ -1,21 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  
+  <!-- bootstrap css -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  />
 </head>
 <body>
-    <h2>Login</h2>
-    <form action="" method="POST">
-        <label for="id">ID</label>
-        <input type="text" name="id">
-        <br>
-        <label for="password">password</label>
-        <input type="password" name="password">
-        <br>
-        <input type="submit" value="LOGIN">
-    </form>
+  <div class="container mt-5">
+    <!-- 🔔 Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
+    <!-- 🔐 Login Form -->
+    <form action="" method="POST">
+      <h2>Login</h2>
+
+      <label for="id" class="form-label">ID</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+        <input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요">
+      </div>
+
+      <label for="password" class="form-label">Password</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력해주세요">
+      </div>
+
+      <input class="btn btn-primary mt-2" type="submit" value="LOGIN">
+    </form>
+  </div>
+
+  <!-- bootstrap js -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"
+  ></script>
 </body>
 </html>
