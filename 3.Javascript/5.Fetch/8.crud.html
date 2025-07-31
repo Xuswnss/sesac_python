@@ -1,0 +1,7 @@
+  document.getElementById('load').addEventListener('click', async () => {
+            console.log('버튼 클릭')
+            const response = await ('https://jsonplaceholder.typicode.com/posts/1') // 기본값은 GET
+            const json =  await response.json()
+            document.getElementById('result').innerText = JSON.stringify(json, null, 4);
+            console.log('fetch이후')
+        })
