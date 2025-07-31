@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap</title>
+    <!-- bootstrap css -->
+       <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+
+    <div class="container my-4">
+        <button id="loadButton1" class="btn btn-outline-danger me-2" type="button">
+            <span class="spinner-border text-danger spinner-border-sm d-none" aria-hidden="true" role="status"></span>
+            <span class="button-text">데이터 로딩</span>
+        </button> 
+
+        <button id="LoadButton1" class="btn btn-outline-primary me-2" type="button">
+            <span class="spinner-border text-primary spinner-border-sm invisible" aria-hidden="true" role="status"></span>
+            <span class="button-text">데이터 로딩2</span>
+        </button> 
+    </div>
+
+
+    <script>
+        const loadButton1 = document.getElementById('loadButton1')
+        const spinner1 = document.querySelector('.spinner-border')
+        const buttonText1 = loadButton1.querySelector('.button-text')
+        loadButton1.addEventListener('click', ()=>{
+            loadButton1.disabled = true
+            spinner1.classList.remove('d-none') // add, remove, toggle
+            buttonText1.textContent = '데이터 로딩중'
+            
+        })
+    </script>
+    <!-- bootstrap js-->
+     <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>

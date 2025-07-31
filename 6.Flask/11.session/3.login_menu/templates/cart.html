@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} 장바구니 페이지 {% endblock %}
+
+{% block content %} 
+<h1>장바구니</h1>
+{% if error %}
+<p style="color: red;">{{error}}</p>
+{% endif %}
+<p></p>
+<table >
+    <thead>
+        <tr>
+            <th>prod-id</th>
+            <th>name</th>
+            <th>price</th>
+            <th>qty</th>
+            <th>delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{item.qty}}</td>
+            <td> <a href="/del?item_id={{item.id}}" >del</a> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<br>
+
+
+{% endblock %}

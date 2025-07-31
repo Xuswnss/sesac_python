@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block login %}{{login.text}}{% endblock %}
+{% block url %}{{login.url}}{% endblock %}
+
+
+{% block title %}사용자 페이지 {% endblock %}
+
+{% block content %} 
+<h1>'{{user.name}}' 안녕하세요!!!</h1>
+
+{% endblock %}
