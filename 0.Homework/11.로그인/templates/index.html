@@ -19,7 +19,7 @@
 </head>
 <body>
   <div class="container mt-5">
-    <!-- 🔔 Flash Messages -->
+
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
@@ -31,7 +31,7 @@
       {% endif %}
     {% endwith %}
 
-    <!-- 🔐 Login Form -->
+   
     <form action="" method="POST">
       <h2>Login</h2>
 

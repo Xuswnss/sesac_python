@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  {% if user %}
+    <h2>안녕하세요, {{ user.name }}</h2>
+
+    {% if user.profile_image %}
+      <img src="{{ user.profile_image }}" width="100" alt="프로필 이미지">
+    {% endif %}
+
+    <p><a href="{{ url_for('logout') }}">로그아웃</a></p>
+
+  {% else %}
+    <a href="{{ url_for('login_naver') }}">
+      <img src="{{ url_for('static', filename='naver_square_logo.png') }}" alt="네이버 로그인" width="100">
+    </a>
+  {% endif %}
+
+</body>
+</html>

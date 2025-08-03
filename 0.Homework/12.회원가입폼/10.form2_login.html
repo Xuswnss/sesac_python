@@ -74,7 +74,7 @@
           <label for="birth" class="form-label">생년월일</label>
           <div class="input-group">
             <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-            <input type="date" class="form-control" />
+            <input type="date" class="form-control"  id="birth"/>
             <div class="invalid-feedback">생년월일을 입력해주세요</div>
           </div>
         </div>
@@ -85,52 +85,57 @@
           <div class="input-group">
             <div class="form-control" style="border: none">
               <div class="form-check form-check-inline">
+                 <label class="form-check-label " for="field1">AI</label>
                 <input
-                  class="form-check-input"
+                  class="form-check-input interest"
                   type="checkbox"
                   id="field1"
                   value="AI"
                 />
-                <label class="form-check-label" for="field1">AI</label>
+               
               </div>
               <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="field2">빅데이터</label>
                 <input
-                  class="form-check-input"
+                  class="form-check-input interest"
                   type="checkbox"
                   id="field2"
                   value="빅데이터"
                 />
-                <label class="form-check-label" for="field2">빅데이터</label>
+              
               </div>
               <div class="form-check form-check-inline">
+                 <label class="form-check-label" for="field3">웹개발</label>
                 <input
-                  class="form-check-input"
+                  class="form-check-input interest"
                   type="checkbox"
                   id="field3"
                   value="웹개발"
                 />
-                <label class="form-check-label" for="field3">웹개발</label>
+               
               </div>
               <div class="form-check form-check-inline">
+                 <label class="form-check-label" for="field4">보안</label>
                 <input
-                  class="form-check-input"
+                  class="form-check-input interest"
                   type="checkbox"
                   id="field4"
                   value="보안"
                 />
-                <label class="form-check-label" for="field4">보안</label>
+               
               </div>
               <div class="form-check form-check-inline">
+                 <label class="form-check-label" for="field5">게임</label>
                 <input
-                  class="form-check-input"
+                  class="form-check-input interest"
                   type="checkbox"
                   id="field5"
                   value="게임"
                 />
-                <label class="form-check-label" for="field5">게임</label>
+               
               </div>
             </div>
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" id="interestError">
               관심분야는 최소 1개, 최대 4개까지 선택해주세요.
             </div>
           </div>
@@ -149,7 +154,7 @@
       const interestCheckboxes = document.querySelectorAll(".interest");
       const interestError = document.getElementById("interestError");
 
-      // 2. 각각의 입력값을 검사하는 함수들 만들기
+  
 
       // 아이디: 3글자 이상 10글자 이하
       function validateUsername() {
@@ -207,15 +212,18 @@
         interestCheckboxes.forEach((checkbox) => {
           if (checkbox.checked) {
             checkedCount++;
+            console.log(checkbox.value)
           }
         });
 
         // 조건 확인
-        if (checkedCount >= 1 && checkedCount <= 4) {
-          interestError.style.display = "none";
+        if (checkedCount >= 1 && checkedCount < 4) {
+          interestError.classList.remove("is-invalid");
+          interestError.classList.add("is-valid");
           return true;
         } else {
-          interestError.style.display = "block";
+          interestError.classList.remove("is-valid");
+          interestError.classList.add("is-invalid");
           return false;
         }
       }
@@ -242,7 +250,7 @@
 
         // 모든 입력칸이 'is-valid'이고, 관심분야도 조건 만족할 때만 통과
         const isAllValid =
-          document.querySelectorAll(".is-invalid").length === 0 &&
+          document.querySelectorAll(".is-invalid").length == 0 &&
           interestValid;
 
         if (isAllValid) {
