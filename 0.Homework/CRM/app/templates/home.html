@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<div class ="container mt-4 p-2">
+    <label for="id" >ID</label>
+    <input type="text" id="id" name="id"class="mb-4" placeholder="id를 입력해주세요">
+    <br>
+
+    <label for="password">password</label>
+    <input type="password" id="password" name="password"  class="mb-4"placeholder="비밀번호를 입력해주세요">
+    <br>
+    <button class="btn btn-outline-primary mb-4"><a href="">로그인</a></button>
+    <br>
+    <a href="/register">회원가입</a>
+
+
+</div>
+{%endblock%}
