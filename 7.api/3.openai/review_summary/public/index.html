@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <h1>상품 페이지</h1>
+    <div class="language-selector" style="position: absolute">
+      <label for="languageSelector"><strong>language-selector</strong></label>
+      <select name="" id="languageSelect">
+        <option value="ko">한국어</option>
+        <!-- Korean -->
+        <option value="en">English</option>
+        <!-- English -->
+        <option value="jp">日本語</option>
+        <!-- Japanese -->
+        <option value="fr">Français</option>
+        <!-- French -->
+        <option value="es">Español</option>
+        <!-- Spanish -->
+        <option value="de">Deutsch</option>
+        <!-- German -->
+        <option value="zh">中文</option>
+        <!-- Chinese -->
+        <option value="ru">Русский</option>
+        <!-- Russian -->
+      </select>
+    </div>
+    <div class="product-image">
+      <img src="https://picsum.photos/600/400" alt="상품이미지" />
+    </div>
+
+    <div class="review-form">
+      <h2>후기를 작성해주세요</h2>
+      <div>
+        <p>Rating:</p>
+        <label><input type="radio" name="rating" value="1" />1</label>
+        <label><input type="radio" name="rating" value="2" />2</label>
+        <label><input type="radio" name="rating" value="3" />3</label>
+        <label><input type="radio" name="rating" value="4" />4</label>
+        <label><input type="radio" name="rating" value="5" />5</label>
+      </div>
+      <textarea
+        id="opinion"
+        placeholder="의견을 작성해주세요"
+        rows="5"
+        cols="40"
+      ></textarea>
+      <button onclick="submitReview()">제출</button>
+    </div>
+    <div>
+      <h2>후기</h2>
+      <div id="reviews-container">
+        <div class="ai-summary">
+          <p><strong>AI요약:</strong>아직 리뷰가 없습니다.</p>
+          <p><strong>평균 별점:</strong>N/A</p>
+        </div>
+        <!-- 여기에 추가로 review-box 들이 추가될 곳 -->
+      </div>
+    </div>
+  </body>
+</html>
