@@ -2,14 +2,22 @@ from dotenv import load_dotenv
 import os
 
 from flask import Flask, request, jsonify
-from openai import OpenAI
+from langchain_core.prompts import PromptTemplate
+
+from langchain_openai import OpenAI,ChatOpenAI
+from langchain_core.runnables import RunnableLambda
 
 load_dotenv()
 
 # app = Flask(__name__, static_folder='static', static_url_path='static')
 app = Flask(__name__, static_folder='public', static_url_path='')
 # openai = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-openai = OpenAI()
+openai = ChatOpenAI(
+    model = 'gpt-3.5-turbo',
+    temperature= 0.7
+)
+
+
 
 reviews = [] # 사용자 후기를 저장할 DB
 
@@ -43,20 +51,29 @@ def get_ai_summary():
     
     print("리뷰내용 통합: ", reviews_text)
     print('target Lang:', target_lang)
-    # 아래도 try catch 로 꼭 감싸야 함.. key가 없거나, 돈이 다 떨어졌거나, 서버가 죽었거나, 여러가지 이유로 요청에 실패할수 있음.
-    response = openai.chat.completions.create(
-        model='gpt-3.5-turbo',
-        messages=[{
-            'role': 'user',
-            'content': f'다음 리뷰 목록을 기반으로 {target_lang}나라 말로 간결하게 한줄로 요약해 주세요.\n\n{reviews_text} 그리고 '
-        }]
-        
+   
+  
+    # 1. PromptTemplate 정의
+    prompt = PromptTemplate(
+        input_variables=["target_lang", "reviews_text"],
+        template="다음 리뷰 목록을 기반으로 {target_lang} 나라 말로 간결하게 한줄로 요약해 주세요:\n\n{reviews_text}"
     )
-    
-    
-    summary = response.choices[0].message.content.strip()
-    print("요약리뷰내용: ", summary)
-    return jsonify({'summary': summary, 'averageRating': average_rating})
+    llm = OpenAI(temperature=0.5)
+    # 3. 체인 생성
+    chain = prompt | llm | RunnableLambda(lambda x: {"translated": x.strip()})
+    try:
+        # 4. 입력을 딕셔너리로 전달
+        result = chain.invoke({
+            "target_lang": target_lang,
+            "reviews_text": reviews_text
+        })
+        print("AI 요약 결과:", result)
+    except Exception as e:
+        print("AI 요약 중 에러 발생:", e)
+        return jsonify({'summary': 'AI 요약 실패', 'averageRating': average_rating}), 500
+
+    return jsonify({'summary': result['translated'], 'averageRating': average_rating})
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

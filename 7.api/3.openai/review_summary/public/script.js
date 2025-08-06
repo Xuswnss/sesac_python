@@ -55,11 +55,16 @@ function displayReview(reviews) {
   });
 }
 
+document.getElementById("languageSelect").addEventListener("change", () => {
+  fetchAISummary(); // 언어 바뀔 때마다 AI 요약 다시 가져오기
+});
 async function fetchAISummary() {
   const lang = document.getElementById('languageSelect').value
+  console.log('####### lang : ', lang)
   const response = await fetch(`/api/ai-summary?lang=${lang}`);
   // 오류처리 생략
   const data = await response.json();
+  console.log("data.targetLang :", data.targetLang);
   // console.log(data);
   displayAISummary(data);
 }
@@ -72,7 +77,7 @@ function displayAISummary(data) {
     `;
 }
 
-window.onload = async () => {
-  await fetchReviews();
-  await fetchAISummary();
+window.onload =  () => {
+   fetchReviews();
+   fetchAISummary();
 };
