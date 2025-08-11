@@ -2,35 +2,33 @@ document.addEventListener("DOMContentLoaded", initChatbot);
 
 function initChatbot() {
   createChatbotUI();
-  registerEventHandlers();
+  registerEventHanders();
 }
 
 function createChatbotUI() {
   const chatbotHTML = `
-       <div class='chatbot-icon' id='chatbotIcon'>
-        <i class="bi bi-chat-dots-fill"></i>
-     </div>
+        <div class="chatbot-icon" id="chatbotIcon">
+            <i class="bi bi-chat-dots-fill"></i>
+        </div>
 
-     <div class="chatbot-window" id="chatbotWindow" style="display:none">
-        <div class="chatbot-header">
-          <span>chatbot</span>
-          <button id='closeChatbot'>x</button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <span>Chatbot</span>
+                <button id="closeChatbot">X</button>
+            </div>
+            <div class="chatbot-body">
+                <div class="chatbot-messages" id="chatbotMessages"></div>
+                <div class="chatbot-input-container">
+                    <input type="text" id="chatbotInput" placeholder="Type a message...">
+                    <button id="sendMessage">Send</button>
+                </div>
+            </div>
         </div>
-        <div class="chatbot-body">
-          <div class="chatbot-messages" id="chatbotMessages"></div>
-          <div class="chatbot-input-container">
-              <input type="text" id="chatbotInput" placeholder="Type a message..">
-              <button id="sendMessage">send</button>
-          </div>
-        </div>
-     </div>
     `;
-
-  // ✅ Fix: Use insertAdjacentHTML instead of insertAdjacentElement
   document.body.insertAdjacentHTML("beforeend", chatbotHTML);
 }
 
-function registerEventHandlers() {
+function registerEventHanders() {
   const chatbotIcon = document.getElementById("chatbotIcon");
   const chatbotWindow = document.getElementById("chatbotWindow");
   const closeChatbot = document.getElementById("closeChatbot");
@@ -44,30 +42,26 @@ function registerEventHandlers() {
 
   closeChatbot.addEventListener("click", () => {
     chatbotWindow.style.display = "none";
-    chatbotIcon.style.display = "block"; // ✅ Fix: 다시 아이콘 보이게
+    chatbotIcon.style.display = "flex";
   });
 
-  sendMessage.addEventListener("click", handlerUserMessage);
-
+  sendMessage.addEventListener("click", handleUserMessage);
   chatbotInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handlerUserMessage();
-    }
+    if (e.key === "Enter") handleUserMessage();
   });
 }
 
-async function handlerUserMessage() {
+async function handleUserMessage() {
   const input = document.getElementById("chatbotInput");
-  const message = input.value.trim(); // ✅ Fix: ariaValueMax → value
+  const message = input.value.trim();
   if (!message) return;
 
+  addMessage(message, "user");
+  input.value = "";
 
-    addMessage(message, 'user')
-    input.value = ''
-    const botResponse = await sendMessageToServer(message)
-    addMessage(botResponse, 'bot')
-}// end handlerUserMessage
+  const botResponse = await sendMessageToServer(message);
+  addMessage(botResponse, "bot");
+}
 
 function addMessage(message, sender) {
   const container = document.getElementById("chatbotMessages");
@@ -75,27 +69,34 @@ function addMessage(message, sender) {
   const messageElement = document.createElement("div");
   messageElement.innerHTML =
     sender === "user"
-      ? `<i class='bi bi-person'></i> ${message}`
-      : `<i class='bi bi-robot'></i> ${message}`;
-
+      ? `<i class="bi bi-person"></i> ${message}`
+      : `<i class="bi bi-robot"></i> ${addLine(message)}`;
   messageElement.classList.add(sender);
+
   container.appendChild(messageElement);
   container.scrollTop = container.scrollHeight;
 }
 
+function addLine(message) {
+  return message.replace(/\n/g, "<br>");
+}
+
 const ECHO_MODE = false;
 
-async function sendMessageToServer(userInput){
-    if (ECHO_MODE) {
-        console.log('에코모드 실행중입니다.')
-        return `ECHO : ${userInput}`
-    }
-    const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers : {'Content-Type' : 'application/json'},
-        body: JSON.stringify({userInput})
-    })
-    const data = await response.json()
-    console.log("#### sendMessageToServer" , data);
-    return data.chatbot // 나중에 서버의 응답 변수로 변경해야함.
-}// end sendMessageToServer()
+async function sendMessageToServer(userInput) {
+  if (ECHO_MODE) {
+    return `Echo: ${userInput}`;
+  }
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userInput }),
+  });
+
+  const data = await response.json();
+  console.log("서버응답:", data);
+  loadTodos();
+
+  return data.chatbot; // 나중에 서버의 응답 변수로 변경해야함.
+}

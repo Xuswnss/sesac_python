@@ -4,10 +4,11 @@
 #민감정보
 .env
 uploads/*
-
+DATA
 __pycache__/
 
 **/uploads/*
 *.db
 *.sqlite
 *.sqlite3
+*.db

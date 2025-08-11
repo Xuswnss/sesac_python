@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 기반 챗봇</title>
+</head>
+<body>
+    <h1>문서 업로드 및 Q&A</h1>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">업로드</button>
+
+    <h2>업로드된 파일</h2>
+    <ul id="file-list"><!-- 파일 목록이 출력될 곳 --></ul>
+
+    <h2>질의 응답</h2>
+    <input type="text" id="questionInput">
+    <button onclick="askQuestion()">질문하기</button>
+    
+    <h3>답변</h3>
+    <div id="answer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

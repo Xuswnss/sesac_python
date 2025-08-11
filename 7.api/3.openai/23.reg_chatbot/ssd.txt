@@ -1,0 +1,131 @@
+2) SSD (Single Shot Multibox Detector)
+Yolo는 정확도 측면에선 다소 제약이 있었습니다. 또한 작은 물체들은 잘 잡아내지 못한다는 문제가 있었습니다. SSD는 이러한 한계점을 극복하고자 하는 시도에서 출발하게 됩니다. SSD는 기존 R-CNN, YOLO의 구조를 교묘하게 짜집기하여 구성되어 있습니다.
+이전 모델과 다른, SSD 특징점은 Multi Scale Feature Maps for Detection, Default Boxes Generation 이라고 보았습니다.
+이 두 가지 요소에 집중하여 살펴 보시는게 좋겠습니다.
+
+Network 구조
+SSD Network
+0. Default box generation
+특정한 가로, 세로 비를 갖는 default box k개를 미리 설정합니다.
+Default box는 YOLO의 Anchor box와 비슷한 개념으로 bounding box가 될 후보라고 생각하시면 됩니다.
+feature map 위에 default box를 그린 뒤 Image Classification & Default Boxes Prediction을 진행할 것 입니다.
+
+1. Image Input
+300x300 크기의 input image를 입력받습니다.
+YOLO는 448x448 크기의 input image를 받았습니다. YOLO보다 저해상도 데이터에서도 잘 작동함을 알 수 있습니다.
+
+2. CNN Feature extraction
+pretrained된 VGG-16의 Conv5_3층까지 통과하며 Feature를 추출합니다
+
+3. Image Classification & Default Boxes Prediction
+convolution layer 4_3에서 추출한 Featuer map을 이용해 default box의 위치 예측과 classification을 수행합니다. 여기서 Default box는 YOLO의 Anchor box와 비슷한 개념이라고 생각하시면 되겠습니다.
+default box의 수를 k, 예측하려는 class의 수를 c라고 할 때, output feature map의 channel 수는 k x (C+4)가 되도록 설계합니다.
+(4는 default box의 x,y,w,h에 해당합니다. Yolo와 비슷하죠?)
+SSD 모델은 예측하려는 class의 수가 20개이고, 배경도 class에 포함하기에 c=21 입니다.
+
+
+4. Multi Scale Feature Maps for Detection
+convolution layer 7, 8_2, 9_2, 10_2, 11_2에서 추출한 Featuer map에 대해서도 default box의 위치 예측과 classification을 수행합니다.
+convolution layer 4_3, 7, 8_2, 9_2, 10_2, 11_2 라는 총 6개의 서로 다른 scale의 feature map을 예측에 사용합니다.
+
+YOLO V1과 네트워크 디자인을 비교해보겠습니다.
+
+Multi Scale Feature Layer
+
+SSD는 다양한 사이즈의 Feature map 38X38, 19X19, 10X10, 5X5, 1X1에서 검출을 하는 반면에
+YOLO V1에서는 단 하나 사이즈의 Feature map 7X7에서만 객체 검출을 하고 있습니다.
+
+5. NMS(Non-maximum suppression)
+여러 feature map에서 생성된 default box에 대해 NMS를 시행하여 최종 결과를 도출합니다
+
+Default Boxes Generation
+SSD에서는 특정한 가로, 세로 비를 갖는 default box k개를 미리 설정하고 각 grid cell 별로 default box를 그려본 다음 Image Classification & Default Boxes Prediction을 진행한다고 했습니다.
+문제는 convolution layer 4_3, 7, 8_2, 9_2, 10_2, 11_2에서 뽑아낸 총 6개의 Feature map이 존재하는데, 각 feature map은 크기가 다르므로 grid cell도 크기도 달라진다 다르다는 것입니다.
+따라서 6개의 featuer map 마다 input image 대비 default box의 크기 비율 Sk을 지정해주어야 합니다.
+
+예를 들어 원본 이미지의 크기가 300x300이고 default box width:height가 1:1 이라고 했을 때
+앞쪽 Layer의 s = 0.9 로 정하여 default box의 크기는 30x30 (=300x0.1 x 300 x 0.9)가 되고,
+뒤쪽 Layer의 s = 0.1 로 정하여 default box의 크기는 30x30 (=300x0.1 x 300 x 0.1)가 되는 것입니다.
+
+
+(이해가 잘 안된다면 TimeTraveler | SSD 이 글을 참고하세요)
+Sk의 수식적 표현
+
+Feature Map의 개수는 m개 이고, 임의의 Smin과 Smax를 설정합니다.
+Sk는 Smin과 Smax 사이를 m-1개의 구간으로 나누어 등간격의 값을 가지도록 합니다.
+
+원 논문에서는 m=6이라고 했고,
+첫 번째 Feature Map에선 Input image 크기 대비 0.2 비율을 가진 작은 default box를 설정하기 위해 s_min은 0.2,
+6 번째 Feature Map에서는 Input image 크기 대비 0.9 비율을 가진 큰 default box를 설정하기 위해 s_max = 0.9,
+로 설정했으며 최종 Sk는 [0.2, 0.34, 0.48, 0.62, 0.76, 0.9]가 됩니다.
+
+Default box의 width/height 비율 설정
+input image 대비 default box의 크기 비율 Sk을 정했다면 이제는 default box 자체의 가로, 세로 비를 지정해야 합니다.
+
+
+
+
+
+이런 식으로 다소 복잡하게 정의가 되어있습니다.
+만약 a_r = 2라면 가로 : 세로 비는 2:1이 되고, a_r = 3이라면 가로 : 세로 비는 3:1이 됩니다.
+SSD Network 구조를 보시면 default box 개수가 4개인 layer도 있고 6개인 layer도 있습니다.
+(개수를 다르게 설정한 이유에 대해 원 논문에서는 그냥 경험적으로 해봤더니 더 성능이 좋더라~라고 되어 있습니다.)
+Default box 4개인 경우
+- a = 1, 2, 1/2를 사용하여 가로 : 세로 비가 1:1, 2:1, 1:2인 default box 3개를 만들고
+- 추가적으로 S'k & a =1 값을 가지는 가로 : 세로 비가 1:1인 default box 1개를 만들어 사용합니다.
+Default box 6개인 경우
+- a = 1, 2, 3, 1/2, 1/3를 사용하여 가로 : 세로 비가 1:1, 2:1, 3:1, 1:2, 1:3인 default box 5개를 만들고
+- 추가적으로 S'k & a =1 값을 가지는 가로 : 세로 비가 1:1인 default box 1개를 만들어 사용합니다.
+
+Multi Scale Feature Maps for Detection
+Yolo는 Input image를 7x7 크기의 featuer map에 대해서 Object Detection을 수행하기 때문에 1개의 Bounding box가 1개의 객체만을 잡아낼 수 있고, 1개의 Bounding box 안에 작은 객체가 여러 개 있는 경우 해당 객체를 잡아내지 못하는 문제가 있었습니다.
+
+SSD는 convolution layer를 통과하면서 생성된 다수의 feature map에서 모두 Object Detection을 수행합니다.
+앞쪽 layer에서는 작은 객체를 검출하고, 뒤쪽 layer에서는 큰 객체를 검출 하게 되므로 YOLO의 단점을 해결할 수 있습니다.
+또한 Multi Scale Feature Maps for Detection을 시행하는 경우 여러 layer에서 object detection을 시행하므로 정확도가 올라갑니다.
+
+
+8x8 feature map에서 detection을 시행하는 경우와 4x4 feature map에서 detection을 시행하는 경우를 예시로 비교해보겠습니다.
+특정한 가로, 세로 비를 갖는 default box k개를 미리 설정합니다.
+(default box는 R-CNN 에서 사용했던 Anchor box와 비슷하다고 생각하면 됩니다.)
+CNN의 특성상 앞쪽 Layer는 grid cell 크기가 작고, 뒤쪽 layer는 grid cell 크기가 큽니다.
+따라서 8x8 feature map의 default box는 작은 객체 (위 그림에서 고양이)를 검출하고, 4x4 feature map의 default box는 큰 객체 (위 그림에서 강아지)를 검출하게 됩니다.
+Select candidate default boxes by Hard Negative Mining
+서로 다른 scale의 default box를 각 Feature map에 적용한 경우 총 default box의 수는 8732 (=38x38x4 + 19x19x6 + 10x10x6 + 5x5x6 + 3x3x6 + 1x1x4)개입니다. 이 모든 default box를 학습시키기에는 효율이 떨어집니다. 이 효율을 높이기 위해 저자들은 Hard Negative Mining이라는 기법을 도입합니다.
+
+Hard Negative Mining은 사실 우리에게 굉장히 친숙한 기법입니다. 우리가 객관식 5지선다에서 헷갈리는 문제가 생기면 어떻게 하나요? 1번이 가장 정답인 것 같고 2,3번은 아리까리하고 4,5번은 확실히 아닌 것 같다고 하면 4,5번은 지우고 1,2,3번 중에 고민하죠. Hard Negative Mining은 바로 그 기법에 해당합니다.
+
+우선 default box 안에 객체가 있다고 판단한 default box를 추립니다. (원 논문에서는 ground truth와 IoU 0.5 이상인 box를 positive로, IoU 0.5 미만이면 negative로 label합니다.)
+위의 과정을 거치면 대부분의 default box들은 negative로 label 되어있습니다. (보통 이미지에서 객체보다는 배경에 해당되는 영역이 많으니까요)
+이때 모든 negative labeled data를 학습에 사용하게 되면 positive와 negative 학습 데이터의 Class imbalance 문제로 이어질 수 있습니다.
+Hard Negative Mining을 통해 모든 negative 데이터를 학습에 사용하는 것이 아니라 confidence loss가 높은 negative 데이터만을 사용하였습니다. 즉, negative라고 label하긴 했지만 아리까리하다고 판단했던 default box들을 추린다는 뜻입니다.
+negative label default box : positive label default box = 3:1 비율을 유지하여 학습에 사용합니다. (저자들은 실험적으로 이 비율이 제일 optimal 하다고 합니다.)
+Loss function
+전체 손실 함수는 localization loss (loc)와 confidence loss (conf)의 합으로 구성됩니다.
+
+ 
+N : Ground truth box와 매칭 된 default box의 개수, N=0이라면 Loss가 0이 됩니다.
+l : 예측한 box
+g : gt box
+c : confidence score(물체일 확률)
+α : weight term, 디폴트값으로 α = 1을 사용
+ 
+localization loss (loc)는 l과 g을 파라미터로 가지는 Smooth L1 loss function입니다.
+
+l: 예측한 box의 (x, y, w, h) 좌표
+g: ground truth box의 (x, y, w, h) 좌표
+x_k_ij 는 i번째 default box와 class가 k인 j번째 ground truth box와의 매칭 여부를 알려주는 indicator parameter로, 매칭될 경우 1, 그렇지 않을 경우 0
+장점
+YOLO V1보다는 FPS는 소폭 상승했습니다만 mAP는 매우 크게 상승했습니다. 
+end-to-end 학습을 할 수 있게 구축했으며 저해상도 이미지에서도 높은 정확도를 가집니다.
+YOLO와 달리 Fully Convolution Network을 사용하지 않았습니다. 이를 통해 얻는 장점을 아래와 같습니다.
+Fully Convolution Network를 통과하면서 디테일한 정보들이 사라지는 문제점이 있었는데 이를 해소하였습니다.
+Parameter 개수가 급격히 감소하여 처리 속도가 매우 빨라졌습니다.
+단점
+YOLO보다 개선되었다고는 하지만 여전히 작은 크기의 물체를 잘 찾아내지 못합니다.
+작은 물체는 앞쪽 layer에서 생성된 Feature map을 이용하여 object detection을 수행하기 때문입니다.
+앞쪽 layer를 이용하여 object detection을 수행하는 것은 Depth가 충분히 깊지 않은 CNN 모델로 Object detection을 수행하는 것과 비슷합니다. 이를 극복하기 위해 저자들은 Data Augmentation을 사용합니다.
+
+
+위 그림처럼 기존 input image를 축소하고 나머지 여백에는 input image의 평균값으로 채워넣은 새로운 data를 만듭니다.
+이런 데이터들로 학습을 시키니 성능 개선이 나타났다고 합니다.
