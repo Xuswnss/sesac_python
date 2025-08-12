@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본 Leaflet 예제</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seoul Population Density Map</h1>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <div id="map"></div>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([37.5665, 126.9780], 11);
+     
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+
+        var seoulData = {{ seoul_pops | tojson | safe }};
+        console.log(seoulData);
+
+        seoulData.forEach(e => {
+            var population = parseInt(e.population);
+            var radius = calculateMarkerRadius(population);
+            var marker = L.circleMarker([e.lat, e.lng], {
+                radius: radius,
+                fillColor: 'red',
+                color: 'pink',
+                weight: 1,
+                fillOpacity: 0.5
+            }).addTo(map);
+
+         
+            marker.bindPopup(e.district,{
+                permanent : true,
+                direction : 'center',
+                className : 'marker-label'
+            })
+            marker.bindPopup(`<b>${e.district}</b><br>Population: ${e.population}`);
+        });
+
+        function calculateMarkerRadius(population) {
+            let minPopulation = 100_000
+            let maxPopulation = 500_000
+
+            var minRadius = 20
+            var maxRadius = 100
+
+            var radius = minRadius + ((population - minPopulation) / (population - maxPopulation))
+            console.log(`population ${population} , radius : ${radius}`)
+            return radius
+        }
+    </script>
+</body>
+</html>
+
