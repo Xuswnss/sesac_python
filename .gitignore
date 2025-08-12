@@ -1,5 +1,6 @@
 #맥북용 파일
 .DS_Store
+node_modules
 
 #민감정보
 .env
